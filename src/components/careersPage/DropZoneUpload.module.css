@@ -1,0 +1,62 @@
+.dropZone {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 140px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px dashed rgb(180, 177, 177);
+  border-radius: 8px;
+  color: #455150;
+  background: #e5e7eb;
+  width: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 15px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow: hidden;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0;
+  transition: all 150ms ease;
+  margin-top: 24px;
+}
+.dropZone:hover {
+  background: #d7f2ff;
+}
+.dropZoneDrag {
+  border: 1px dashed rgba(11, 156, 96, 0.3);
+  background: #d7ffec;
+}
+.iconPhoto {
+  width: 25px;
+  height: 25px;
+  margin-bottom: 5px;
+}
+.chooseFile {
+  padding: 5px 10px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  border: 0;
+  outline: 0;
+}
+.title {
+  width: 100%;
+  display: block;
+  text-align: center;
+  color: #455150;
+  font-weight: 400;
+  font-size: 12px;
+  padding-top: 9px;
+}

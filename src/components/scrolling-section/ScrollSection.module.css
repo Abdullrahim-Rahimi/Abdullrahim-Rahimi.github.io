@@ -1,0 +1,66 @@
+.outerContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.lockerImage {
+  position: sticky;
+  top: 0;
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lockerImage .imaaag {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.imaaag.active {
+  opacity: 1;
+}
+
+.lockerContent {
+  flex: 1;
+  overflow-y: scroll;
+  height: 100vh;
+  position: relative;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.lockerContent::-webkit-scrollbar {
+  display: none;
+}
+
+.lockerSection {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.text {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.subtitle {
+  font-size: 2.4rem;
+  font-weight: 200;
+  margin-bottom: 0;
+  text-align: center;
+}

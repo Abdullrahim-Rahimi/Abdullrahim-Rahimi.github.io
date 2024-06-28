@@ -1,0 +1,46 @@
+.locker {
+  outline-offset: -1px;
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(4.2rem, 1fr) [center-start] repeat(
+      12,
+      [col-start] minmax(min-content, 8rem) [col-end]
+    )
+    [center-end] minmax(4.2rem, 1fr) [full-end];
+}
+.locker__image {
+  position: relative;
+  grid-column: col-start 2 / col-end 6;
+}
+.locker__image img {
+  width: auto;
+  height: 70vh;
+  position: absolute;
+  transition: all 1s ease;
+}
+.locker__container {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.locker__content {
+  grid-column: col-start 8 / center-end;
+}
+.locker__section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-top: 1px solid #cdcdcd;
+}
+.locker__section:first-child {
+  border: none;
+}
+.locker__section p {
+  width: 70%;
+}

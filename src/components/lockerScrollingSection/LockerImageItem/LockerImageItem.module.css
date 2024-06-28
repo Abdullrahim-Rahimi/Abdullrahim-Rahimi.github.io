@@ -1,0 +1,7 @@
+.image {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.image.active {
+  opacity: 1;
+}
