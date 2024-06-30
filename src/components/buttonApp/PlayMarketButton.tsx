@@ -16,7 +16,11 @@ export const PlayMarketButton = ({
   return (
     <>
       <Button
-        onClick={() => router.push('/get-the-app')}
+        onClick={() =>
+          router.push(
+            'https://apps.apple.com/kw/app/the-daisy/id1667105749?itsct=apps_box_link&itscg=30200',
+          )
+        }
         variant="navigation"
         className={`w-full group hover:bg-white hover:text-primary mr-0 h-full flex items-center justify-center rounded-xl py-4 ${className}`}
       >

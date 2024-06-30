@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { useLoadingStore } from '@/store/loading';
 import { getData, getRandomElements } from '@/helpers/getPartners';
 import { Skeleton } from '@/components/ui/skeleton';
+import LockerContainer from '@/components/lockerScrollingSection/LockerContainer/LockerContainer';
 
 const Business = () => {
   const [heroBusiness, setHeroBusiness] = useState<any>();
@@ -61,6 +62,8 @@ const Business = () => {
             title={heroBusiness?.title}
             subtitle={heroBusiness?.subtitle}
           />
+          <LockerContainer />
+
           <div className="md:hidden ">
             <NoScrollingAnimationBusiness
               subtitle={heroBusiness?.listHeroPost[0].title}

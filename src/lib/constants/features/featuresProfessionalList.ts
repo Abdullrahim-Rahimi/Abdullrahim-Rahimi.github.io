@@ -1,4 +1,5 @@
 import phone from '../../../assets/images/features/PHONE1.png';
+import doublePhone from '../../../assets/images/doublePhone.png';
 export const listMarketingFeatures = [
   {
     title: 'Marketing tools1',
@@ -8,7 +9,7 @@ export const listMarketingFeatures = [
   {
     title: 'Marketing tool2',
     desription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: phone,
+    image: doublePhone,
   },
   {
     title: 'Marketing tool3',
@@ -18,7 +19,7 @@ export const listMarketingFeatures = [
   {
     title: 'Marketing tool4',
     desription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: phone,
+    image: doublePhone,
   },
 ];
 

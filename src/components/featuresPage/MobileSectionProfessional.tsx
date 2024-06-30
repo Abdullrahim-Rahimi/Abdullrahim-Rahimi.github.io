@@ -1,31 +1,36 @@
 import { CarouselBusinessMobile } from './CarouselBusinessMobile';
 import { Separator } from '@/components/ui/separator';
 import { FeatureProfessionalList } from './FeatureProfessionalList';
-import {
-  listManegamentFeatures,
-  listMarketingFeatures,
-  listPerfomanceFeatures,
-} from '@/lib/constants/features/featuresProfessionalList';
 
-export const MobileViewProfessional = () => {
+export const MobileViewProfessional = ({
+  dataFeatures,
+  dataListManagm,
+  dataListPayment,
+  dataListReports,
+}: {
+  dataFeatures: any;
+  dataListManagm: any;
+  dataListPayment: any;
+  dataListReports: any;
+}) => {
   return (
     <div className="md:hidden">
-      <CarouselBusinessMobile />
+      <CarouselBusinessMobile dataBusiness={dataFeatures} />
       <Separator className="bg-[#586968] my-20" />
       <FeatureProfessionalList
-        title="Marketing tools  to attract new & retain current customers"
-        desription="marketing"
-        item={listMarketingFeatures}
+        title={dataFeatures?.marketingTools.title}
+        desription={dataFeatures?.marketingTools.description}
+        dataList={dataListManagm}
       />
       <FeatureProfessionalList
-        title="Collect Payments, sync Calendars and automate daily processes"
-        desription="management"
-        item={listManegamentFeatures}
+        title={dataFeatures?.collectPayments.title}
+        desription={dataFeatures?.collectPayments.description}
+        dataList={dataListPayment}
       />
       <FeatureProfessionalList
-        title="performance reports and business Analytics to help you grow!"
-        desription="performance"
-        item={listPerfomanceFeatures}
+        title={dataFeatures?.performanceReports.title}
+        desription={dataFeatures?.performanceReports.description}
+        dataList={dataListReports}
       />
     </div>
   );

@@ -40,7 +40,6 @@ const Professional = () => {
     <div className="w-full bg-primary">
       <ProfessionalHero />
 
-      <LockerContainer />
       <div className="md:hidden ">
         <NoScrollingAnimationBusiness
           subtitle={heroProfessional?.[0].attributes.hero.title}

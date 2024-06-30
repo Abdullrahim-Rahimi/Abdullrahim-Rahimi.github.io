@@ -102,7 +102,6 @@ export const ProfileForm = () => {
 
       const data = await response.json();
       toast.success('Success Submitet!');
-      console.log('Form submitted', data);
       setPhoneNumber('00000000');
       form.reset();
     } catch (error) {

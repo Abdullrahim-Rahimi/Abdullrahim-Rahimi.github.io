@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { Separator } from '../ui/separator';
 import { cn } from '@/lib/utils';
+import imageLeaf from '../../assets/images/features/Group.png';
+import { baseURLImage } from '@/helpers/axiosConfig';
 
 export const FeaturesCustomerItem = ({
   item,
@@ -9,6 +11,10 @@ export const FeaturesCustomerItem = ({
   item: any;
   index?: number;
 }) => {
+  const image = new URL(item.picture.data?.[0].attributes.url, baseURLImage)
+    .href;
+
+  const currentImage = image.includes('undefined') ? imageLeaf.src : image;
   return (
     <>
       <li
@@ -19,7 +25,11 @@ export const FeaturesCustomerItem = ({
           },
         )}
       >
-        <h2 className="font-montserrat font-semibold text-[20px] leading-[30px] mb-1">
+        <h2
+          className={
+            'font-montserrat font-semibold text-[20px] leading-[30px] mb-1'
+          }
+        >
           {item.title}
         </h2>
         <p className="mb-6">{item.description}</p>
@@ -30,9 +40,9 @@ export const FeaturesCustomerItem = ({
 
         <Image
           className={cn(`mx-auto ${item.style}`)}
-          width={item.width}
-          height={item.height}
-          src={item.image}
+          width={1000}
+          height={1000}
+          src={currentImage}
           alt="features-images"
         />
       </li>

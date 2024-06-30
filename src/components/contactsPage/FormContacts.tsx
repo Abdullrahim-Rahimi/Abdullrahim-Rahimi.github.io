@@ -64,7 +64,7 @@ export const FormContacts = ({ style }: { style?: string }) => {
       country_code,
       type: 'enquiry',
     };
-    console.log(formData);
+
     try {
       setIsSubmit(true);
       delete formData.acceptconditions;
@@ -85,7 +85,6 @@ export const FormContacts = ({ style }: { style?: string }) => {
 
       const data = await response.json();
       toast.success('Success Submitet!');
-      console.log('Form submitted', data);
       setPhoneNumber('00000000');
       form.reset();
     } catch (error) {

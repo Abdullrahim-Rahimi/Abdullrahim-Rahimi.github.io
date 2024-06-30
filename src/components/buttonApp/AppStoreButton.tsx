@@ -16,7 +16,11 @@ export const AppStoreButton = ({
   return (
     <>
       <Button
-        onClick={() => router.push('/get-the-app')}
+        onClick={() =>
+          router.push(
+            'https://play.google.com/store/apps/details?id=com.trythedaisy.app',
+          )
+        }
         variant="navigation"
         className={`w-full mr-0 h-full felx items-center justify-center rounded-xl py-4 group hover:bg-white hover:text-primary ${className}`}
       >

@@ -27,9 +27,8 @@ function getMonthName(month: number) {
   return monthNames[month];
 }
 
-const DropZoneUpload = () => {
+const DropZoneUpload = ({ setFiles, files }: any) => {
   const [isDragActive, setIsDragActive] = useState(false);
-  const [files, setFiles] = useState<any[]>([]);
 
   const onDropRejected = useCallback((fileRejections: FileRejection[]) => {
     console.error(fileRejections[0].errors);
@@ -37,7 +36,7 @@ const DropZoneUpload = () => {
   }, []);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
+    setFiles((prevFiles: any) => [...prevFiles, ...acceptedFiles]);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -53,7 +52,9 @@ const DropZoneUpload = () => {
   });
 
   const handleRemoveFile = (fileName: string) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    setFiles((prevFiles: any) =>
+      prevFiles.filter((file: any) => file.name !== fileName),
+    );
   };
 
   return (
@@ -66,7 +67,7 @@ const DropZoneUpload = () => {
     >
       {files.length ? (
         <ul>
-          {files.map((file, index) => {
+          {files.map((file: any, index: any) => {
             const date = new Date(file.lastModifiedDate);
             const formattedDate = `${getMonthName(date.getMonth())} ${date.getDate()}, ${date.getFullYear()}`;
 

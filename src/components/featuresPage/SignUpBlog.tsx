@@ -1,19 +1,30 @@
+'use client';
+import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { MailIcons } from '@/assets/icons/mailIcons/mailicons';
+import axiosInstance from '@/helpers/axiosConfig';
 
 export const SignUpBlog = ({ style }: { style?: string }) => {
+  const [textSignUp, setSignUp] = useState<any>();
+  useEffect(() => {
+    (async () => {
+      const response = await axiosInstance.get('/sign-up-blocks');
+      const [data] = response.data.data;
+      setSignUp(data.attributes.signUpText);
+    })();
+  }, []);
+
   return (
     <div
       className={`bg-[#DBCCC4] py-28 px-4 md:border-[#E5E7EB] md:rounded-[16px] md:mx-20 md:flex md:items-center md:p-[48px] ${style}`}
     >
       <div className="md:mr-10 md:w-[60%]">
         <h2 className="text-primary font-bold text-[24px] leading-[30px] capitalize md:text-[32px] md:leading-10">
-          Sign up for our Blog
+          {textSignUp?.title}
         </h2>
         <p className="text-[#455150] font-montserrat text-base md:mt-4">
-          Stay up to date with the roadmap progress, announcements and exclusive
-          discounts feel free to sign up with your email.
+          {textSignUp?.description}
         </p>
       </div>
       <div className=" md:flex md:flex-col md:justify-start md:w-[480px]">
@@ -31,8 +42,8 @@ export const SignUpBlog = ({ style }: { style?: string }) => {
           </Button>
         </div>
         <p className="font-montserrat text-sm text-[#455150]">
-          We care about the protection of your data. Read our
-          <span className="font-semibold"> Privacy Policy. </span>
+          {textSignUp?.about}
+          <span className="font-semibold"> {textSignUp?.privacy}</span>
         </p>
       </div>
     </div>

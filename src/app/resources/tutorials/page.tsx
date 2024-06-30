@@ -2,10 +2,19 @@
 import { TutorialSection } from '@/components/blogPage/tutorialPage/TutorialSection';
 import { HeroPage } from '@/components/heroSection/HeroSection';
 import { TabsTutorials } from '@/components/tabsTutorials/TabsTutorials';
-import { useState } from 'react';
+import axiosInstance from '@/helpers/axiosConfig';
+import { useEffect, useState } from 'react';
 
 const Tutorials = () => {
   const [scroll, setScroll] = useState(null);
+  const [dataTutorials, setDataTutorials] = useState<any>();
+  useEffect(() => {
+    (async () => {
+      const response = await axiosInstance.get('/resource-tutorials');
+      const [data] = response.data.data;
+      setDataTutorials(data.attributes);
+    })();
+  }, []);
   return (
     <>
       <HeroPage
@@ -15,11 +24,11 @@ const Tutorials = () => {
         isVisibleBreadCrumbs={true}
         hiddenArrow={false}
         visibleDescriiton={false}
-        title="LEARNING RESOURCES"
-        description="Tutorials & Guides"
+        title={dataTutorials?.title}
+        description={dataTutorials?.subtitle}
         heightScreen={true}
         styleSection="pb-[100px] pt-6 px-[16px] h-screen"
-        secondDescription="Welcome to The Daisy's Learning Corner! Explore our Tutorials & Guides for valuable insights into the world of beauty and wellness."
+        secondDescription={dataTutorials?.description}
       />
       <TutorialSection setScroll={setScroll} />
       {/* <TabsTutorials /> */}

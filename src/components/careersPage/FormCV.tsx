@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -14,24 +14,26 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import Separator from '../separator/Separator';
 import DropZoneUpload from './ReactDropZone';
+import axiosInstance from '@/helpers/axiosConfig';
 
 const formSchema = z.object({
-  firstname: z.string().min(5, {
-    message: 'Full Name must be at least 5 characters.',
-  }),
-  lastname: z.string().min(5, {
-    message: 'Last Name must be at least 5 characters.',
-  }),
-  email: z
-    .string()
-
-    .email('This is not a valid email.'),
+  firstname: z.string(),
+  lastname: z.string(),
+  email: z.string().email('This is not a valid email.'),
 });
 
-export const FormCV = () => {
+export const FormCV = ({
+  openCV,
+  setOpenCV,
+  setUploadSucces,
+}: {
+  openCV: boolean;
+  setOpenCV: Dispatch<SetStateAction<boolean>>;
+  setUploadSucces: Dispatch<SetStateAction<number | undefined>>;
+}) => {
   const [activeField, setActiveField] = useState<string | null>(null);
+  const [files, setFiles] = useState<any[]>([]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -39,15 +41,37 @@ export const FormCV = () => {
       firstname: '',
       lastname: '',
       email: '',
-      message: '',
-      phonenumber: '',
-      acceptconditions: false,
     },
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    const formData = new FormData();
+    formData.append('firstName', data.firstname);
+    formData.append('lastName', data.lastname);
+    formData.append('email', data.email);
+    formData.append('cv', files[0]);
+
+    try {
+      const response = await axiosInstance.post(
+        'https://motivated-belief-b4a000ad6e.strapiapp.com/api/form-careers',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+      setUploadSucces(response.status);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+
     form.reset();
+    setFiles([]);
+    setTimeout(() => {
+      setOpenCV(!openCV);
+      setUploadSucces(0);
+    }, 1000);
   };
 
   const handleFocus = (fieldName: string) => {
@@ -141,7 +165,7 @@ export const FormCV = () => {
             )}
           />
         </div>
-        <DropZoneUpload />
+        <DropZoneUpload setFiles={setFiles} files={files} />
 
         <Button
           type="submit"

@@ -1,3 +1,4 @@
+'use client';
 import { QRCodeIcons } from '@/assets/icons/qrCodeIcon/QRCodeIcon';
 import { AppStoreButton } from '../buttonApp/AppStoreButton';
 import { PlayMarketButton } from '../buttonApp/PlayMarketButton';
@@ -6,6 +7,7 @@ import leaf from '../../assets/images/LeafBg.png';
 import stars from '../../assets/images/Stars.png';
 import phone from '../../assets/images/PHONE.png';
 import Image from 'next/image';
+import { baseURLImage } from '@/helpers/axiosConfig';
 
 export const BusinessHero = ({
   title,
@@ -14,6 +16,10 @@ export const BusinessHero = ({
   title: string;
   subtitle: string;
 }) => {
+  const qrCode = new URL(
+    '/uploads/QR_https_daisylnk_com_install_app_6524ba7590.svg',
+    baseURLImage,
+  ).href;
   return (
     <div className=" bg-primary pt-16 px-4 h-screen">
       <div className="md:hidden">
@@ -37,7 +43,15 @@ export const BusinessHero = ({
           </p>
           <Separator className="my-8" />
           <div className="grid grid-cols-[148px_1fr] ">
-            <QRCodeIcons />
+            <div className="mr-6  hidden md:block bg-primaryBtn rounded-[8px] w-[148px] h-[148px]">
+              <Image
+                width={2000}
+                height={2000}
+                src={qrCode}
+                alt="qrCode"
+                className="p-4  w-[180px] h-[150px]"
+              />
+            </div>
             <div className="flex flex-col justify-between border-primaryBtn ml-6 rtl:mr-6 ">
               <PlayMarketButton className="mb-2 w-full" />
               <AppStoreButton />

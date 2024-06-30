@@ -11,4 +11,5 @@ const axiosInstance = axios.create({
 });
 
 export default axiosInstance;
+// export const baseURLImage = 'http://localhost:1337';
 export const baseURLImage = 'https://motivated-belief-b4a000ad6e.strapiapp.com';

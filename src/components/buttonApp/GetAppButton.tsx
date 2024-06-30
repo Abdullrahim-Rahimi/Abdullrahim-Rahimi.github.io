@@ -1,8 +1,10 @@
+'use client';
 import { AppStoreIcons } from '@/assets/icons/appMarket/AppStoreIcons';
 import { Button } from '../ui/button';
 import { GooglePlayIcons } from '@/assets/icons/appMarket/GooglePlayIcons';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export const GetAppButton = ({
   className,
@@ -13,6 +15,7 @@ export const GetAppButton = ({
   setOpen?: any;
   open?: boolean;
 }) => {
+  const router = useRouter();
   return (
     <Button
       asChild
