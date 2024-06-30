@@ -169,7 +169,7 @@ export const ProfileForm = () => {
                   <Input
                     type="email"
                     className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                    placeholder="gmail@gmail.com"
+                    placeholder="Your work email goes here"
                     {...field}
                     onFocus={() => handleFocus('email')}
                     onBlur={handleBlur}
@@ -301,7 +301,7 @@ export const ProfileForm = () => {
                     <Input
                       className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
                       type="number"
-                      placeholder="00000000"
+                      placeholder="No country code number"
                       value={mobile}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       onFocus={() => handleFocus('mobile')}
@@ -328,7 +328,7 @@ export const ProfileForm = () => {
                 <FormControl>
                   <Input
                     className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                    placeholder="https:/www.youMediaAccount.com"
+                    placeholder="Your social media account goes here .."
                     {...field}
                     onFocus={() => handleFocus('social_media')}
                     onBlur={handleBlur}

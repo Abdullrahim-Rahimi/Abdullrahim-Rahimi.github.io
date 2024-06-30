@@ -137,7 +137,7 @@ const Business = () => {
         </div>
       ) : (
         <div className="w-full h-screen mt-[100px] px-[50px] pt-[100px]">
-          <Skeleton className="w-full mb-10 h-[20px]" />
+          <Skeleton className="w-full mb-10 h-[200px]" />
           <Skeleton className="w-full mb-10 h-[20px]" />
           <Skeleton className="w-full mb-10 h-[20px]" />
           <Skeleton className="w-full mb-10 h-[20px]" />
