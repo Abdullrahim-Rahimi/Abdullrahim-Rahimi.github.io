@@ -110,6 +110,11 @@ export const MobileMenu = ({
           className="w-full mb-10 mt-6"
           setOpen={setOpenMenu}
           open={openMenu}
+          onClick={() =>
+            router.push(
+              'https://daisylnk.com/install-app',
+            )
+          }
         />
       </DropdownMenuContent>
     </DropdownMenu>
