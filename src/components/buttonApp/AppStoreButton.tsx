@@ -18,7 +18,7 @@ export const AppStoreButton = ({
       <Button
         onClick={() =>
           router.push(
-            'https://play.google.com/store/apps/details?id=com.trythedaisy.app',
+            'https://apps.apple.com/kw/app/the-daisy/id1667105749?itsct=apps_box_link&itscg=30200',
           )
         }
         variant="navigation"
