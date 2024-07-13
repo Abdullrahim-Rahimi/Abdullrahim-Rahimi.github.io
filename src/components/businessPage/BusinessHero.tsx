@@ -1,5 +1,4 @@
 'use client';
-import { QRCodeIcons } from '@/assets/icons/qrCodeIcon/QRCodeIcon';
 import { AppStoreButton } from '../buttonApp/AppStoreButton';
 import { PlayMarketButton } from '../buttonApp/PlayMarketButton';
 import Separator from '../separator/Separator';
@@ -12,9 +11,15 @@ import { baseURLImage } from '@/helpers/axiosConfig';
 export const BusinessHero = ({
   title,
   subtitle,
+  easyFlexible,
+  gataway,
+  services,
 }: {
   title: string;
   subtitle: string;
+  easyFlexible: string;
+  gataway: string;
+  services: string;
 }) => {
   const qrCode = new URL(
     '/uploads/QR_https_daisylnk_com_install_app_6524ba7590.svg',
@@ -23,12 +28,10 @@ export const BusinessHero = ({
   return (
     <div className=" bg-primary pt-16 px-4 h-screen">
       <div className="md:hidden">
-        <h1 className="text-white text-5xl leading-[60px]">
-          Easy, Flexible And Powerful, Your Customers Will Love It!
-        </h1>
-        <p className="font-montserrat font-medium leading-[30px] text-xl text-[#D5D9D9] mt-3">
-          Your Gateway to Seamless
-          <br className="md:hidden" /> Services & Unbeatable Deals!
+        <h1 className="text-white text-5xl leading-[60px]">{easyFlexible}</h1>
+        <p className="ltr:font-montserrat font-medium leading-[30px] text-xl text-[#D5D9D9] mt-3">
+          {gataway}
+          <br className="md:hidden" /> {services}
         </p>
         <div className="flex flex-col border-b border-primaryBtn pb-16">
           <PlayMarketButton className="mb-6 mt-8" />
@@ -38,7 +41,7 @@ export const BusinessHero = ({
       <div className="hidden md:flex justify-between mx-16">
         <div className="flex flex-col w-[533px]">
           <h1 className="text-white text-5xl leading-[60px]">{title}</h1>
-          <p className="font-montserrat font-medium leading-[30px] text-xl text-[#D5D9D9] mt-3">
+          <p className="ltr:font-montserrat font-medium leading-[30px] text-xl text-[#D5D9D9] mt-3">
             {subtitle}
           </p>
           <Separator className="my-8" />

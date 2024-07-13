@@ -24,9 +24,10 @@ export const FeatureProfessionalList = ({
         {dataList &&
           dataList.map((item: any, index: number) => {
             const imageBlock = new URL(
-              item.attributes.picture.data[0].attributes.url,
+              item.attributes.picture.data[0].attributes.formats.small.url,
               baseURLImage,
             ).href;
+
             return (
               <li key={index} className="text-start mx-auto ">
                 <div className="bg-[#586968]  h-[320px] relative rounded-[9px] overflow-hidden ">
@@ -42,10 +43,10 @@ export const FeatureProfessionalList = ({
                     alt="item"
                     width={200}
                     height={200}
-                    className="mx-auto pt-10 h-[320px] absolute bottom-0 left-1/2 transform -translate-x-1/2"
+                    className={`mx-auto px-[10px] pt-10 h-[320px] w-[${item.attributes.picture.data[0].attributes.formats.small.width}px] absolute bottom-0 left-1/2 transform -translate-x-1/2`}
                   />
                 </div>
-                <h3 className="mt-6 font-montserrat font-semibold text-[20px] leading-[30px] text-white">
+                <h3 className="mt-6 ltr:font-montserrat font-semibold text-[20px] leading-[30px] text-white">
                   {item.attributes.title}
                 </h3>
                 <p className="mt-1 text-[#D5D9D9]">

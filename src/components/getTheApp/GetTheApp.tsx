@@ -16,7 +16,7 @@ export const GetTheAppScan = ({ qrCode }: { qrCode: string }) => {
       </div>
       <div className="md:flex md:flex-col">
         <PlayMarketButton className="mb-4 md:mr-6 px-[160px]" />
-        <AppStoreButton className="px-[160px]" />
+        <AppStoreButton className="px-[160px] md:rtl:mr-6" />
       </div>
     </div>
   );

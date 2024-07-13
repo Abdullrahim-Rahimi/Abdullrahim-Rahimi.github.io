@@ -3,27 +3,32 @@ import { GetTheAppScan } from '@/components/getTheApp/GetTheApp';
 import { HeroPage } from '@/components/heroSection/HeroSection';
 import Separator from '@/components/separator/Separator';
 import axiosInstance, { baseURLImage } from '@/helpers/axiosConfig';
+import { useChangeLanguage } from '@/store/language';
 import { useEffect, useState } from 'react';
 
 const GetTheApp = () => {
   const [dataGetApp, setGetApp] = useState<any>();
+
+  const { lang } = useChangeLanguage();
   useEffect(() => {
     (async () => {
-      const response = await axiosInstance.get('/get-the-apps?populate=*');
-      const [data] = response.data.data;
-      setGetApp(data.attributes);
+      const response = await axiosInstance.get(
+        `/get-the-apps?populate=*&locale=${lang}`,
+      );
+      const [data] = response?.data?.data;
+      setGetApp(data?.attributes);
     })();
-  }, []);
+  }, [lang]);
   const qrCode = new URL(
     dataGetApp?.qrCode.data[0].attributes.url,
     baseURLImage,
   ).href;
-  console.log(qrCode);
+
   return (
     <>
       <HeroPage
-        bredCrumbTitle="Get the app"
-        bredCrumbDesription="Home"
+        bredCrumbTitle={dataGetApp?.titleBredCrumb.title}
+        bredCrumbDesription={dataGetApp?.titleBredCrumb.description}
         isVisibleBreadCrumbs={true}
         hiddenArrow={true}
         visibleDescriiton={false}

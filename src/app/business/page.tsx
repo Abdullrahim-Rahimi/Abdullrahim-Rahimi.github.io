@@ -1,7 +1,6 @@
 'use client';
 import { QASection } from '@/components/QASection/QASection';
 import { BecomeFormPartner } from '@/components/businessPage/BecomeFormPartner';
-import { BusinessHero } from '@/components/businessPage/BusinessHero';
 import { DaysiMission } from '@/components/businessPage/DaysiMission';
 import { GrowthSection } from '@/components/businessPage/GrowthSection';
 import { ExperienceDaisy } from '@/components/experienceDaisy/ExperienceDaisy';
@@ -20,18 +19,31 @@ import { useLoadingStore } from '@/store/loading';
 import { getData, getRandomElements } from '@/helpers/getPartners';
 import { Skeleton } from '@/components/ui/skeleton';
 import LockerContainer from '@/components/lockerScrollingSection/LockerContainer/LockerContainer';
+import { useChangeLanguage } from '@/store/language';
 
 const Business = () => {
   const [heroBusiness, setHeroBusiness] = useState<any>();
   const [growth, setGrowth] = useState<any>();
+  const [dataScroll, setDataScroll] = useState<any>();
   const { handleArray, handleLoadingStatus } = useLoadingStore();
+
+  const { lang } = useChangeLanguage();
+
   useEffect(() => {
     (async function getBusiness() {
       try {
-        const responseGrowth = await axiosInstance.get('/growth-businesses');
-        const response = await axiosInstance.get('/home-businesses');
-        setHeroBusiness(response.data.data[0].attributes);
-        setGrowth(responseGrowth?.data.data[0].attributes);
+        const responseGrowth = await axiosInstance.get(
+          `/growth-businesses?populate=*&locale=${lang}`,
+        );
+        const response = await axiosInstance.get(
+          `/home-businesses?locale=${lang}`,
+        );
+        const responseScrolling = await axiosInstance.get(
+          `/home-bussiness-scrollings?populate=*&locale=${lang}`,
+        );
+        setDataScroll(responseScrolling?.data?.data);
+        setHeroBusiness(response?.data?.data?.[0]?.attributes);
+        setGrowth(responseGrowth?.data?.data?.[0]?.attributes);
       } catch (error) {
         console.error(error);
         handleLoadingStatus(false);
@@ -39,7 +51,7 @@ const Business = () => {
         handleLoadingStatus(false);
       }
     })();
-  }, [handleLoadingStatus]);
+  }, [handleLoadingStatus, lang]);
 
   useEffect(() => {
     try {
@@ -53,17 +65,11 @@ const Business = () => {
       console.log(error);
     }
   }, [handleArray, handleLoadingStatus]);
-
   return (
     <>
       {heroBusiness ? (
-        <div className="w-full bg-primary">
-          <BusinessHero
-            title={heroBusiness?.title}
-            subtitle={heroBusiness?.subtitle}
-          />
-          <LockerContainer />
-
+        <div className="w-full bg-primary md:-mt-[100px]">
+          <LockerContainer listInfo={dataScroll} />
           <div className="md:hidden ">
             <NoScrollingAnimationBusiness
               subtitle={heroBusiness?.listHeroPost[0].title}
@@ -129,22 +135,20 @@ const Business = () => {
             title={growth?.title}
             description={growth?.description}
             subtitle={growth?.subtitle}
+            learnMore={growth?.buttonLearn}
+            imageUrl={growth?.imageHero?.data?.[0].attributes.url}
           />
           <JoinTheDaisy />
           <ExperienceDaisy />
-          <QASection pageType="Business" />
+          <QASection
+            pageType="Business"
+            titleFraque={heroBusiness?.titleFraque}
+          />
           <BecomeFormPartner />
         </div>
       ) : (
-        <div className="w-full h-screen mt-[100px] px-[50px] pt-[100px]">
-          <Skeleton className="w-full mb-10 h-[200px]" />
-          <Skeleton className="w-full mb-10 h-[20px]" />
-          <Skeleton className="w-full mb-10 h-[20px]" />
-          <Skeleton className="w-full mb-10 h-[20px]" />
-          <Skeleton className="w-full mb-10 h-[20px]" />
-          <Skeleton className="w-full mb-10 h-[20px]" />
-          <Skeleton className="w-full mb-10 h-[20px]" />
-          <Skeleton className="w-full mb-10 h-[20px]" />
+        <div className="w-full h-screen py-[40px] px-[20px] bg-primary">
+          <Skeleton className="w-full mb-10 h-full" />
         </div>
       )}
     </>

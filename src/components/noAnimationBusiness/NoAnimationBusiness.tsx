@@ -66,7 +66,7 @@ export const NoScrollingAnimationBusiness = ({
         {subtitle}
       </h5>
       <h2 className="pt-2 text-white leading-10 text-3xl">{title}</h2>
-      <p className="font-montserrat font-medium text-xl pt-3 leading-8 text-[#D5D9D9]">
+      <p className="ltr:font-montserrat font-medium text-xl pt-3 leading-8 text-[#D5D9D9]">
         {desription}
       </p>
       <motion.ul
@@ -83,7 +83,7 @@ export const NoScrollingAnimationBusiness = ({
                 variant="navigation"
                 className="w-full justify-start mt-4 font-semibold text-base text-[#D5D9D9]"
               >
-                <CheckIcon className="mr-2" />
+                <CheckIcon className="ltr:mr-2 rtl:ml-2" />
                 {items}
               </Button>
             </motion.li>

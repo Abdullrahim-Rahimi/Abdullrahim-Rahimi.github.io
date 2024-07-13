@@ -18,8 +18,8 @@ export const optionsToogleFeatures = [
 ];
 
 export const changeLanguage = [
-  { label: 'LTR', path: 'en' },
-  { label: 'RTL', path: 'ua' },
+  { label: 'En', path: 'en' },
+  { label: 'Ar', path: 'ar' },
 ];
 
 export const optionsTooglePricing = [

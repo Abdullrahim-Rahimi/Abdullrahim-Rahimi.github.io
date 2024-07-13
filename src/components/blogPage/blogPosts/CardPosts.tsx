@@ -6,28 +6,38 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { baseURLImage } from '@/helpers/axiosConfig';
 import { usePostStore } from '@/store/post';
+import { useChoosePath } from '@/store/currentPath';
 
 export const CardPosts = ({
   redirect,
   style,
   listCard,
+  typePath,
 }: {
   redirect: boolean;
   style?: string;
   listCard: any;
+  typePath: string;
 }) => {
   const router = useRouter();
-  const { handlePost } = usePostStore();
+  const { handlePost, setMarkdownPost, setHandleId } = usePostStore();
+  const { choosePatnName } = useChoosePath();
 
   useEffect(() => {
     handlePost({});
-  }, [handlePost]);
+    setMarkdownPost({});
+  }, [handlePost, setMarkdownPost]);
+  const sortingList = listCard?.sort((a: any, b: any) => a.id - b.id);
+
+  useEffect(() => {
+    choosePatnName(typePath);
+  }, []);
   return (
     <div className="bg-[#F8F5F3]">
       <div className="h-[230px] md:h-[240px] bg-primary"></div>
       <ul className="bg-[#F8F5F3] px-4 space-y-8 pb-[28px] md:pb-[140px] translate-y-[-231px] md:translate-y-[-241px] bg-transparent -mb-[230px] md:grid md:grid-cols-3 md:gap-6 md:space-y-0">
         {listCard &&
-          listCard.map((item: any, index: number) => {
+          sortingList.map((item: any, index: number) => {
             const [data] = item.attributes.image.data;
             const imagePosts = new URL(data.attributes.url, baseURLImage).href;
             const [dataOwner] = item.attributes.iconOwner.data;
@@ -38,7 +48,9 @@ export const CardPosts = ({
               <li
                 onClick={() => {
                   if (redirect) {
+                    setHandleId(item.id);
                     handlePost(item.attributes);
+                    setMarkdownPost(item.attributes.aboutPosts);
                     router.push('/resources/legal');
                   }
                 }}
@@ -55,7 +67,7 @@ export const CardPosts = ({
                   />
                 </div>
                 <div className="px-6 py-4 mt-6">
-                  <div className="flex justify-start space-x-2 text-sm">
+                  <div className="flex justify-start gap-2 text-sm">
                     <span className="px-3 py-1 text-[#2543AD] bg-[#E9ECF7] rounded-sm">
                       {item.attributes.tags.wellness}
                     </span>
@@ -63,16 +75,16 @@ export const CardPosts = ({
                       {item.attributes.tags.hair}
                     </span>
                   </div>
-                  <h3 className="mt-2 text-lg font-montserrat font-semibold">
+                  <h3 className="mt-2 text-lg ltr:font-montserrat font-semibold">
                     {item.attributes.title}
                   </h3>
 
-                  <div className="flex justify-start space-x-2 text-gray-500 text-sm mt-4">
-                    <div className=" hidden md:flex border-r pr-[10px]">
+                  <div className="flex justify-start gap-2 text-gray-500 text-sm mt-4">
+                    <div className=" hidden md:flex ltr:border-r pr-[10px]">
                       <Image
                         src={ownerSrc}
                         alt="people"
-                        className="mr-[10px] rounded-full"
+                        className="ltr:mr-[10px] rtl:ml-[10px] rounded-full"
                         width={18}
                         height={18}
                       />
@@ -81,15 +93,15 @@ export const CardPosts = ({
                       </span>
                     </div>
                     <span className="flex items-center border-r pr-[10px]">
-                      <CalendarIcon className="mr-[10px]" />
+                      <CalendarIcon className="ltr:mr-[10px] rtl:ml-[10px]" />
                       {item.attributes.user.date}
                     </span>
-                    <span className="flex items-center ">
-                      <ClockIcon className="mr-2" />
-                      {item.attributes.user.time} to read
+                    <span className="flex items-center rtl:border-r rtl:pr-2">
+                      <ClockIcon className="ltr:mr-2 rtl:ml-2" />
+                      {item.attributes.user.time}
                     </span>
                   </div>
-                  <p className="mt-2 text-[#455150] text-sm font-montserrat">
+                  <p className="mt-2 text-[#455150] text-sm ltr:font-montserrat">
                     {item.attributes.description}
                   </p>
                 </div>

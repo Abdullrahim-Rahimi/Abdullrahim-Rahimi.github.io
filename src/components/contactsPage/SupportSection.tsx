@@ -11,10 +11,10 @@ export const SupportSection = ({ contacts = [] }: { contacts: any }) => {
       <ul className="flex flex-col justify-center items-center mx-auto px-4 gap-8  md:grid md:grid-cols-3 md:items-start md:-mt-[120px] -mt-[220px]">
         <li className="flex flex-col justify-center items-center text-center">
           <MessageIcons />
-          <h3 className="mt-5 font-montserrat font-medium text-xl">
+          <h3 className="mt-5 ltr:font-montserrat font-medium text-xl">
             {contacts[0]?.title}
           </h3>
-          <p className="mt-1 font-montserrat text-[#455150] md:px-14">
+          <p className="mt-1 ltr:font-montserrat text-[#455150] md:px-14">
             {contacts[0]?.subtitle}
           </p>
           <p className="text-[#A67F6B] mt-1 font-semibold leading-6">
@@ -23,10 +23,10 @@ export const SupportSection = ({ contacts = [] }: { contacts: any }) => {
         </li>
         <li className="flex flex-col justify-center items-center text-center">
           <PhoneIcon />
-          <h3 className="mt-5 font-montserrat font-medium text-xl">
+          <h3 className="mt-5 ltr:font-montserrat font-medium text-xl">
             {contacts[1]?.title}
           </h3>
-          <p className="mt-1 font-montserrat text-[#455150] md:px-14">
+          <p className="mt-1 ltr:font-montserrat text-[#455150] md:px-14">
             {contacts[1]?.subtitle}
           </p>
 
@@ -36,10 +36,10 @@ export const SupportSection = ({ contacts = [] }: { contacts: any }) => {
         </li>
         <li className="flex flex-col justify-center items-center text-center">
           <SupportIcon />
-          <h3 className="mt-5 font-montserrat font-medium text-xl">
+          <h3 className="mt-5 ltr:font-montserrat font-medium text-xl">
             {contacts[2]?.title}
           </h3>
-          <p className="mt-1 font-montserrat text-[#455150] md:px-14">
+          <p className="mt-1 ltr:font-montserrat text-[#455150] md:px-14">
             {contacts[2]?.subtitle}
           </p>
         </li>

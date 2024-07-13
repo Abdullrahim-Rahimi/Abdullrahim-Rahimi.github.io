@@ -58,7 +58,7 @@ export const ScrollingAnimationBusiness = ({
       </div>
       <h5 className="text-[#F2DAD4] pt-8 text-base leading-6">FEATURES</h5>
       <h2 className="pt-2 text-white leading-10 text-3xl">{title}</h2>
-      <p className="font-montserrat font-medium text-xl pt-3 leading-8 text-[#D5D9D9]">
+      <p className="ltr:font-montserrat font-medium text-xl pt-3 leading-8 text-[#D5D9D9]">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor.
       </p>

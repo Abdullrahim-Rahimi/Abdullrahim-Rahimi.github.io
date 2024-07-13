@@ -1,5 +1,4 @@
 'use client';
-import * as React from 'react';
 
 import {
   Select,
@@ -10,16 +9,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { tutorialsList } from '@/lib/constants/tutorialsList';
+import { useChooseTabs } from '@/store/chooseTabs';
+import { useEffect, useState } from 'react';
 
-export const SelectTutorials = () => {
-  const [selectTutorials, setSelectTutorials] = React.useState(
-    tutorialsList[0],
-  );
+export const SelectTutorials = ({ tabsList }: any) => {
+  const [selectTutorials, setSelectTutorials] = useState<any>();
+  const { changeTabs } = useChooseTabs();
+
+  useEffect(() => {
+    if (tabsList && tabsList.length > 0) {
+      changeTabs(tabsList[0].attributes.titleListTab);
+      setSelectTutorials(tabsList[0].attributes.titleListTab);
+    }
+  }, [tabsList, changeTabs]);
+
+  if (!tabsList) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Select
       value={selectTutorials}
-      onValueChange={(change) => setSelectTutorials(change)}
+      onValueChange={(change) => {
+        setSelectTutorials(change);
+        changeTabs(change);
+      }}
     >
       <SelectTrigger className="capitalize">
         <SelectValue placeholder="" aria-label={selectTutorials} />
@@ -27,13 +41,18 @@ export const SelectTutorials = () => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>{selectTutorials}</SelectLabel>
-          {tutorialsList.map((item, index) => {
-            return (
-              <SelectItem key={index} className="capitalize" value={item}>
-                {item}
-              </SelectItem>
-            );
-          })}
+          {tabsList &&
+            tabsList.map((item: any, index: number) => {
+              return (
+                <SelectItem
+                  key={index}
+                  className="capitalize"
+                  value={item.attributes.titleListTab}
+                >
+                  {item.attributes.titleListTab}
+                </SelectItem>
+              );
+            })}
         </SelectGroup>
       </SelectContent>
     </Select>

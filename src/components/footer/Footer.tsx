@@ -7,39 +7,49 @@ import { FacebookIcons } from '@/assets/icons/socialLinksIcons/FacebookIcons';
 import { TwitterIcons } from '@/assets/icons/socialLinksIcons/TwitterIcons';
 import { LinkedInIcons } from '@/assets/icons/socialLinksIcons/LinkedInIcons';
 import { InstagramIcons } from '@/assets/icons/socialLinksIcons/InstagramIcons';
-import { navigationList } from '@/lib/constants/footerNavigationList';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import axiosInstance from '@/helpers/axiosConfig';
+import { useChangeLanguage } from '@/store/language';
 
 export const Footer = () => {
   const [socialLinks, setSocialLinks] = useState<any>();
+  const [navList, setNavList] = useState<any>();
   const path = usePathname();
+  const { lang } = useChangeLanguage();
+
   const isVisibleAppBtn = path.includes('get-the-app');
   useEffect(() => {
     (async () => {
-      const response = await axiosInstance.get('/social-links');
-      setSocialLinks(response.data.data[0].attributes.socialLinks);
+      const response = await axiosInstance.get(`/social-links?locale=${lang}`);
+      setSocialLinks(response?.data?.data?.[0]?.attributes?.socialLinks);
+      const responsefooterList = await axiosInstance.get(
+        `/footers?locale=${lang}`,
+      );
+      setNavList(
+        responsefooterList?.data?.data?.[0]?.attributes?.navigationfooterList,
+      );
     })();
-  }, []);
+  }, [lang]);
   return (
     <footer className="w-full bg-primary px-4 py-[124px] md:py-14 flex flex-col justify-center items-center">
       <Link href={'/'} className="mb-6 opacity-60">
         <LogoIconsS />
       </Link>
       <nav className=" justify-center items-center self-center ">
-        <ul className="flex flex-col items-center justify-center font-montserrat text-[#FFFFFF]/80 md:flex-row md:gap-x-8">
-          {navigationList.map((item, index) => {
-            return (
-              <Link
-                key={index}
-                href={item.nav}
-                className="pb-8 hover:text-white"
-              >
-                {item.name}
-              </Link>
-            );
-          })}
+        <ul className="flex flex-col items-center justify-center ltr:font-montserrat text-[#FFFFFF]/80 md:flex-row md:gap-x-8">
+          {navList &&
+            navList.map((item: any, index: number) => {
+              return (
+                <Link
+                  key={index}
+                  href={item.nav}
+                  className="pb-8 hover:text-white"
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
         </ul>
       </nav>
       {!isVisibleAppBtn && (

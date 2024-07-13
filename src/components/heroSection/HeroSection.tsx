@@ -19,7 +19,7 @@ export const HeroPage = ({
   bredCrumbTitle,
   bredCrumbDesription,
   blockRef,
-  titleScroll = ' Don’t believe us? Keep reading...',
+  titleScroll = 'Don’t believe us? Keep reading...',
   features,
   bredCrumbHref,
 }: {
@@ -52,8 +52,8 @@ export const HeroPage = ({
       )}
     >
       {isVisibleBreadCrumbs && (
-        <div className="flex pb-28 mr-auto">
-          <HomeIcon className="mr-2" />
+        <div className="flex pb-28 ltr:mr-auto rtl:ml-auto">
+          <HomeIcon className="ltr:mr-2 rtl:ml-2 " />
           <BreadcrumbWithCustomSeparator
             bredCrumbTitle={bredCrumbTitle}
             bredCrumbDesription={bredCrumbDesription}
@@ -77,7 +77,7 @@ export const HeroPage = ({
       </h2>
       <p
         className={cn(
-          'text-base font-montserrat font-normal text-[#D5D9D9] mt-2 text-center md:px-[400px]',
+          'text-base ltr:font-montserrat font-normal text-[#D5D9D9] mt-2 text-center md:px-[400px]',
           {
             hidden: visibleDescriiton,
           },
@@ -91,7 +91,7 @@ export const HeroPage = ({
           'md:hidden': features,
         })}
       >
-        <p className="text-base text-white font-normal font-montserrat">
+        <p className="text-base text-white font-normal ltr:font-montserrat">
           {titleScroll}
         </p>
         <span

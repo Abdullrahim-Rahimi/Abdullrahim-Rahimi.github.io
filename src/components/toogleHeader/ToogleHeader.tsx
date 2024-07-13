@@ -1,15 +1,29 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { optionsToogle } from '@/lib/constants/headernavigationList';
 import { cn } from '@/lib/utils';
 import clsx from 'clsx';
 import { Button } from '../ui/button';
+import axiosInstance from '@/helpers/axiosConfig';
+import { useChangeLanguage } from '@/store/language';
+import { useChangePage } from '@/store/currentPage';
 
 const ToggleButton = ({ className }: { className?: string }) => {
   const pathname = usePathname();
   const router = useRouter();
   const [active, setActive] = useState('');
+  const [dataList, setDataList] = useState<any>();
+  const { lang } = useChangeLanguage();
+
+  useEffect(() => {
+    (async () => {
+      const response = await axiosInstance.get(
+        `/options-toogles?locale=${lang}`,
+      );
+      const [data] = response?.data?.data;
+      setDataList(data?.attributes?.optionsToogle);
+    })();
+  }, [lang]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -60,8 +74,15 @@ const ToggleButton = ({ className }: { className?: string }) => {
     }
     if (pathname.includes('/features')) {
       router.push(`/features${path}`);
-    } else {
-      router.push(path);
+    }
+    if (pathname.startsWith('/business')) {
+      router.push(`${path}`);
+    }
+    if (pathname.startsWith('/customer')) {
+      router.push(`${path}`);
+    }
+    if (pathname.startsWith('/professional')) {
+      router.push(`${path}`);
     }
   };
   useEffect(() => {
@@ -71,6 +92,7 @@ const ToggleButton = ({ className }: { className?: string }) => {
       if (currentPath) setActive(currentPath);
     }
   }, []);
+  const { changePage } = useChangePage();
 
   return (
     <div
@@ -79,23 +101,26 @@ const ToggleButton = ({ className }: { className?: string }) => {
         className,
       )}
     >
-      {optionsToogle.map((option) => {
-        return (
-          <Button
-            key={option.path}
-            onClick={() => handleClick(option.path)}
-            className={clsx(
-              'px-6 rounded-lg font-semibold cursor-pointer bg-transparent',
-              {
-                'bg-white text-black': active === option.path,
-                'text-[#ABB4B3] hover:text-white': active !== option.path,
-              },
-            )}
-          >
-            {option.label}
-          </Button>
-        );
-      })}
+      {dataList &&
+        dataList.map((option: { path: string; label: string }) => {
+          return (
+            <Button
+              key={option.path}
+              onClick={() => {
+                handleClick(option.path), changePage(option.path);
+              }}
+              className={clsx(
+                'px-6 rounded-lg font-semibold cursor-pointer bg-transparent',
+                {
+                  'bg-white text-black': active === option.path,
+                  'text-[#ABB4B3] hover:text-white': active !== option.path,
+                },
+              )}
+            >
+              {option.label}
+            </Button>
+          );
+        })}
     </div>
   );
 };

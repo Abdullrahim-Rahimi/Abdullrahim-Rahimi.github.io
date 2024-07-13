@@ -17,10 +17,10 @@ export const OtherOptionPricing = ({
           index > 4 && !showAll ? 'hidden md:flex' : 'flex',
         )}
       >
-        <span className="w-[22px] mr-[10px]">
-          <CheckIconPricing style="mr-[10px]" />
+        <span className="w-[22px] ltr:mr-[10px] rtl:ml-[10px]">
+          <CheckIconPricing style="ltr:mr-[10px] rtl:ml-[10px]" />
         </span>
-        <span className="text-left">{item}</span>
+        <span className="ltr:text-left rtl:text-right">{item}</span>
       </li>
     );
   });

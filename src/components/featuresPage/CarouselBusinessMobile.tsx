@@ -42,29 +42,29 @@ export const CarouselBusinessMobile = ({
       className="w-full md:hidden px-4"
     >
       <CarouselContent>
-        <CarouselItem className="mx-auto flex justify-center">
+        <CarouselItem className="mx-auto flex justify-center h-[400px] overflow-hidden">
           <div className="bg-[#435655] px-[56px] pt-[45px] rounded-[16px] border mt-10 border-[#586968]">
             <Image
               src={firstImage}
-              className={'w-[220px] h-[350px]'}
+              className={'w-[220px] !h-[350px] '}
               alt="item"
               width={1000}
               height={1000}
             />
           </div>
         </CarouselItem>
-        <CarouselItem className="mx-auto flex justify-center">
+        <CarouselItem className="mx-auto flex justify-center  h-[400px] overflow-hidden">
           <div className="bg-[#435655] px-[56px] pt-[45px] rounded-[16px] border mt-10 border-[#586968]">
             <Image
               src={secondImage}
-              className={'w-[220px] h-[350px]'}
+              className={'w-[250px] h-[330px]'}
               alt="item"
               width={1000}
               height={1000}
             />
           </div>
         </CarouselItem>
-        <CarouselItem className="mx-auto flex justify-center">
+        <CarouselItem className="mx-auto flex justify-center  h-[400px] overflow-hidden">
           <div className="bg-[#435655] px-[56px] pt-[45px] rounded-[16px] border mt-10 border-[#586968]">
             <Image
               src={thirdImage}

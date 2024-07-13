@@ -1,24 +1,40 @@
+'use client';
 import { TestimonialsCustomerList } from '@/components/blogPage/testimonialsPage/ListTestimonials';
 import { HeroPage } from '@/components/heroSection/HeroSection';
 import { OurPartnersSection } from '@/components/ourPartnters/OurPartnersSection';
 import Separator from '@/components/separator/Separator';
+import axiosInstance from '@/helpers/axiosConfig';
+import { useChangeLanguage } from '@/store/language';
+import { useEffect, useState } from 'react';
 
 const CustomerTestimonials = () => {
+  const [dataTestimonials, setDataTestimonials] = useState<any>();
+  const { lang } = useChangeLanguage();
+
+  useEffect(() => {
+    (async () => {
+      const response = await axiosInstance(
+        `/resources-customer-testimonials?locale=${lang}`,
+      );
+      const [data] = response?.data?.data;
+      setDataTestimonials(data?.attributes);
+    })();
+  }, [lang]);
   return (
     <>
       <HeroPage
-        bredCrumbTitle="Customers’ Testimonials"
-        bredCrumbDesription="Resources"
+        bredCrumbTitle={dataTestimonials?.bredCrumbTitle}
+        bredCrumbDesription={dataTestimonials?.bredCrumbDesription}
         isVisibleBreadCrumbs={true}
         hiddenArrow={true}
         visibleDescriiton={false}
-        title="TRUST"
-        description="Customers’ Testimonials"
+        title={dataTestimonials?.title}
+        description={dataTestimonials?.description}
         heightScreen={false}
         styleSection="pb-[100px] pt-6 px-[16px]"
-        secondDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        secondDescription={dataTestimonials?.secondDescription}
       />
-      <TestimonialsCustomerList />
+      <TestimonialsCustomerList textMore={dataTestimonials?.textMoreList} />
       <div className="px-4 md:px-20 bg-[#F8F5F3]">
         <Separator className="bg-[#D5D9D9]" />
       </div>

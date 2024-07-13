@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -27,6 +27,8 @@ import { Checkbox } from '../ui/checkbox';
 import { countries } from 'country-data';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axiosInstance from '@/helpers/axiosConfig';
+import { useChangeLanguage } from '@/store/language';
 
 const formSchema = z.object({
   firstname: z.string(),
@@ -41,6 +43,10 @@ export const FormContacts = ({ style }: { style?: string }) => {
   const [country_code, setCountryCode] = useState('+965');
   const [mobile, setPhoneNumber] = useState('');
   const [isSubmit, setIsSubmit] = useState(false);
+  const [formText, setFormText] = useState<any>();
+  const [formTextPlaceholder, setFormTextPlaceholder] = useState<any>();
+
+  const { lang } = useChangeLanguage();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -104,6 +110,14 @@ export const FormContacts = ({ style }: { style?: string }) => {
     setActiveField(null);
   };
 
+  useEffect(() => {
+    (async () => {
+      const response = await axiosInstance.get(`/contact-forms?locale=${lang}`);
+      const [data] = response?.data?.data;
+      setFormText(data?.attributes?.textContactForm);
+      setFormTextPlaceholder(data?.attributes?.placeholderContactForm);
+    })();
+  }, [lang]);
   const usedCountryCodes = new Set();
   return (
     <Form {...form}>
@@ -118,16 +132,16 @@ export const FormContacts = ({ style }: { style?: string }) => {
             render={({ field }) => (
               <FormItem className="md:w-full mt-6">
                 <FormLabel
-                  className={`font-montserrat font-semibold text-base ${
+                  className={`ltr:font-montserrat font-semibold text-base ${
                     activeField === 'firstname' ? 'text-[#A67F6B]' : ''
                   }`}
                 >
-                  First Name
+                  {formText?.name}
                 </FormLabel>
                 <FormControl>
                   <Input
                     className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                    placeholder="First name"
+                    placeholder={formTextPlaceholder?.name}
                     {...field}
                     onFocus={() => handleFocus('firstname')}
                     onBlur={handleBlur}
@@ -141,18 +155,18 @@ export const FormContacts = ({ style }: { style?: string }) => {
             control={form.control}
             name="lastname"
             render={({ field }) => (
-              <FormItem className="md:w-full md:ml-4 mt-6">
+              <FormItem className="md:w-full md:ml-4 rtl:md:mr-4 mt-6">
                 <FormLabel
-                  className={`font-montserrat font-semibold text-base ${
+                  className={`ltr:font-montserrat font-semibold text-base ${
                     activeField === 'lastname' ? 'text-[#A67F6B]' : ''
                   }`}
                 >
-                  Last Name
+                  {formText?.lastName}
                 </FormLabel>
                 <FormControl>
                   <Input
                     className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                    placeholder="Last name"
+                    placeholder={formTextPlaceholder?.lastName}
                     {...field}
                     onFocus={() => handleFocus('lastname')}
                     onBlur={handleBlur}
@@ -170,17 +184,17 @@ export const FormContacts = ({ style }: { style?: string }) => {
             render={({ field }) => (
               <FormItem className="md:w-full mt-6">
                 <FormLabel
-                  className={`font-montserrat font-semibold text-base ${
+                  className={`ltr:font-montserrat font-semibold text-base ${
                     activeField === 'email' ? 'text-[#A67F6B]' : ''
                   }`}
                 >
-                  Email
+                  {formText?.email}
                 </FormLabel>
                 <FormControl>
                   <Input
                     type="email"
                     className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                    placeholder="name@example.com"
+                    placeholder={formTextPlaceholder?.email}
                     {...field}
                     onFocus={() => handleFocus('email')}
                     onBlur={handleBlur}
@@ -195,13 +209,13 @@ export const FormContacts = ({ style }: { style?: string }) => {
             control={form.control}
             name="mobile"
             render={({ field }) => (
-              <FormItem className="md:w-full mt-6 md:ml-4">
+              <FormItem className="md:w-full mt-6 ltr:md:ml-4 rtl:md:mr-4">
                 <FormLabel
-                  className={`font-montserrat font-semibold text-base md:ml-[15px]${
+                  className={`ltr:font-montserrat font-semibold text-base ${
                     activeField === 'mobile' ? 'text-[#A67F6B]' : ''
                   }`}
                 >
-                  Phone Number
+                  {formText?.phone}
                 </FormLabel>
                 <div className="flex space-x-2 ">
                   <FormControl>
@@ -263,11 +277,11 @@ export const FormContacts = ({ style }: { style?: string }) => {
           render={({ field }) => (
             <FormItem className="md:w-full mt-6">
               <FormLabel
-                className={`font-montserrat font-semibold text-base ${
+                className={`ltr:font-montserrat font-semibold text-base ${
                   activeField === 'content' ? 'text-[#A67F6B]' : ''
                 }`}
               >
-                Your content
+                {formText?.content}
               </FormLabel>
               <FormControl>
                 <Textarea
@@ -275,7 +289,7 @@ export const FormContacts = ({ style }: { style?: string }) => {
                   {...field}
                   onFocus={() => handleFocus('content')}
                   onBlur={handleBlur}
-                  placeholder="Type your content here."
+                  placeholder={formTextPlaceholder?.content}
                 />
               </FormControl>
               <FormMessage />
@@ -293,14 +307,14 @@ export const FormContacts = ({ style }: { style?: string }) => {
                   id="acceptconditions"
                   checked={field.value}
                   onCheckedChange={field.onChange}
+                  className="md:rtl:ml-2"
                 />
               </FormControl>
               <FormLabel
                 htmlFor="acceptconditions"
-                className="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 leading-6 text-[#455150]"
+                className="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 leading-6 text-[#455150] "
               >
-                By submitting this form, you confirm that you have read and
-                agree to The Daisy’s Terms of Service and Privacy Statement
+                {formText?.submit}
               </FormLabel>
               <FormMessage />
             </FormItem>
@@ -310,9 +324,9 @@ export const FormContacts = ({ style }: { style?: string }) => {
         <Button
           type="submit"
           disabled={!form.getValues().acceptconditions}
-          className="bg-white text-primary border border-primary w-full px-4 rounded-lg text-base mt-6 hover:bg-primary font-montserrat font-semibold hover:text-white md:py-4 md:h-auto"
+          className="bg-white text-primary border border-primary w-full px-4 rounded-lg text-base mt-6 hover:bg-primary ltr:font-montserrat font-semibold hover:text-white md:py-4 md:h-auto"
         >
-          {isSubmit ? 'Sending...' : 'Send content'}
+          {isSubmit ? 'Sending...' : `${formText?.textButton}`}
         </Button>
       </form>
       <ToastContainer />

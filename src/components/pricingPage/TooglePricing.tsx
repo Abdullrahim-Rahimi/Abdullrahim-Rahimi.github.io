@@ -2,12 +2,8 @@
 
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import { optionsTooglePricing } from '@/lib/constants/headernavigationList';
 import { cn } from '@/lib/utils';
-interface INameToggle {
-  path: string;
-  label: string;
-}
+import { useChangePage } from '@/store/currentPage';
 
 export const TogglePricing = ({
   className,
@@ -18,10 +14,25 @@ export const TogglePricing = ({
   setCurrentPricing: any;
   toogleName: any;
 }) => {
-  const [active, setActive] = useState('professional');
+  const { page } = useChangePage();
+
+  const [active, setActive] = useState('');
+  useEffect(() => {
+    if (page.includes('business')) {
+      setActive('business');
+    }
+    if (page.includes('customer')) {
+      setActive('business');
+    }
+    if (page.includes('professional')) {
+      setActive('professional');
+    }
+  }, [page]);
+
   useEffect(() => {
     setCurrentPricing(active);
   }, [setCurrentPricing, active]);
+
   return (
     <div
       className={cn(

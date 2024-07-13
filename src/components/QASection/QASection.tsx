@@ -3,6 +3,7 @@ import { Constants } from '@/helpers/oldApi';
 import { QAAccordion } from '../qaAccordion/QAAccordion';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useChangeLanguage } from '@/store/language';
 
 enum PageType {
   Customer = 'Customer',
@@ -30,6 +31,7 @@ export const QASection = ({
   titleHidden,
   blockTop,
   sectionFQ,
+  titleFraque,
 }: {
   pageType: any;
   styles?: string;
@@ -38,14 +40,16 @@ export const QASection = ({
   titleHidden?: boolean;
   blockTop?: string;
   sectionFQ?: boolean;
+  titleFraque?: string;
 }) => {
   const [qaList, setQAlist] = useState<any>();
+  const { lang } = useChangeLanguage();
   useEffect(() => {
     (async () => {
-      const data = await getData('en', pageType);
+      const data = await getData(lang, pageType);
       setQAlist(data);
     })();
-  }, [pageType]);
+  }, [pageType, lang]);
 
   return (
     <div className={`bg-[#F8F5F3] px-4 pb-28 md:pt-[200px] ${styles}`}>
@@ -55,7 +59,7 @@ export const QASection = ({
           { hidden: titleHidden },
         )}
       >
-        Frequently Asked Question
+        {titleFraque}
       </h1>
       <div className={`md:mt-12 md:px-[288px] ${blockTop}`}>
         {qaList?.map((item: any, index: number) => {

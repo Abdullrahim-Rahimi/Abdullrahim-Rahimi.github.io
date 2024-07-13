@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -26,23 +26,8 @@ import { ToggleButtonForm } from './ToogleForm';
 import { countries } from 'country-data';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const formSchema = z.object({
-  name: z.string(),
-  business_type: z.string(),
-  email: z
-    .string()
-    .min(5, {
-      message: 'Email must be at least 5 characters.',
-    })
-    .email('This is not a valid email.'),
-  social_media: z.string().url(),
-  country_code: z.string(),
-  mobile: z.string(),
-  location_count: z.string(),
-  staff_count: z.string(),
-  business_name: z.string(),
-});
+import axiosInstance from '@/helpers/axiosConfig';
+import { useChangeLanguage } from '@/store/language';
 
 export const ProfileForm = () => {
   const [activeField, setActiveField] = useState<string | null>(null);
@@ -51,9 +36,25 @@ export const ProfileForm = () => {
   const [business_type, setBusinessType] = useState(false);
   const [homeService, setHomeService] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [textForm, setTextForm] = useState<any>();
+  const [descriptionForm, setDescriptionForm] = useState<any>();
   const [contentChange, setContentChange] = useState({
     serviceProvidorType: 'Freelances',
     homeVisits: 'No',
+  });
+  const formSchema = z.object({
+    name: z.string(),
+    business_type: z.string(),
+    email: z
+      .string()
+
+      .email(descriptionForm?.errorEmail),
+    social_media: z.string().url(descriptionForm?.url),
+    country_code: z.string(),
+    mobile: z.string(),
+    location_count: z.string(),
+    staff_count: z.string(),
+    business_name: z.string(),
   });
 
   const form = useForm({
@@ -112,7 +113,7 @@ export const ProfileForm = () => {
       setIsSubmit(false);
     }
   };
-
+  const { lang } = useChangeLanguage();
   const handleFocus = (fieldName: string) => {
     setActiveField(fieldName);
   };
@@ -120,6 +121,16 @@ export const ProfileForm = () => {
   const handleBlur = () => {
     setActiveField(null);
   };
+  useEffect(() => {
+    (async () => {
+      const response = await axiosInstance.get(
+        `/form-becomepartners?locale=${lang}`,
+      );
+      const [data] = response?.data?.data;
+      setTextForm(data?.attributes?.formDescription);
+      setDescriptionForm(data?.attributes?.formPlaceholder);
+    })();
+  }, [lang]);
 
   return (
     <Form {...form}>
@@ -134,16 +145,16 @@ export const ProfileForm = () => {
             render={({ field }) => (
               <FormItem className="md:w-full mt-6">
                 <FormLabel
-                  className={`font-montserrat font-semibold text-base ${
+                  className={`ltr:font-montserrat font-semibold text-base ${
                     activeField === 'name' ? 'text-[#A67F6B]' : ''
                   }`}
                 >
-                  Full Name
+                  {textForm?.name}
                 </FormLabel>
                 <FormControl>
                   <Input
                     className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                    placeholder="Your name"
+                    placeholder={descriptionForm?.name}
                     {...field}
                     onFocus={() => handleFocus('name')}
                     onBlur={handleBlur}
@@ -159,17 +170,17 @@ export const ProfileForm = () => {
             render={({ field }) => (
               <FormItem className="md:w-full md:ml-4 mt-6 rtl:md:ml-0 rtl:md:mr-4">
                 <FormLabel
-                  className={`font-montserrat font-semibold text-base ${
+                  className={`ltr:font-montserrat font-semibold text-base ${
                     activeField === 'email' ? 'text-[#A67F6B]' : ''
                   }`}
                 >
-                  Work Email
+                  {textForm?.email}
                 </FormLabel>
                 <FormControl>
                   <Input
                     type="email"
                     className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                    placeholder="Your work email goes here"
+                    placeholder={descriptionForm?.email}
                     {...field}
                     onFocus={() => handleFocus('email')}
                     onBlur={handleBlur}
@@ -181,12 +192,12 @@ export const ProfileForm = () => {
           />
         </div>
         <div className="w-full mt-6">
-          <p className="text-[#172524] font-montserrat font-semibold mb-2">
-            Service Providor Type
+          <p className="text-[#172524] ltr:font-montserrat font-semibold mb-2">
+            {textForm?.serviceProvidor}
           </p>
           <ToggleButtonForm
-            firstValue="Business"
-            secondValue="Freelances"
+            firstValue={textForm?.serviceProvidorValue[0]}
+            secondValue={textForm?.serviceProvidorValue[1]}
             homeService={business_type}
             setHomeService={setBusinessType}
             setContent={setContentChange}
@@ -201,16 +212,16 @@ export const ProfileForm = () => {
               render={({ field }) => (
                 <FormItem className="md:w-full mt-6 ">
                   <FormLabel
-                    className={`font-montserrat font-semibold text-base ${
+                    className={`ltr:font-montserrat font-semibold text-base ${
                       activeField === ' business_name' ? 'text-[#A67F6B]' : ''
                     }`}
                   >
-                    Business Name
+                    {textForm?.businessName}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                      placeholder="Spa Time"
+                      placeholder={descriptionForm?.businessName}
                       {...field}
                       onFocus={() => handleFocus('business_name')}
                       onBlur={handleBlur}
@@ -226,16 +237,16 @@ export const ProfileForm = () => {
               render={({ field }) => (
                 <FormItem className="md:w-full md:ml-4 mt-6 rtl:md:ml-0 rtl:md:mr-4">
                   <FormLabel
-                    className={`font-montserrat font-semibold text-base ${
+                    className={`ltr:font-montserrat font-semibold text-base ${
                       activeField === 'business_type' ? 'text-[#A67F6B]' : ''
                     }`}
                   >
-                    Business Type
+                    {textForm?.businessType}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                      placeholder="Spa"
+                      placeholder={descriptionForm?.businessType}
                       {...field}
                       onFocus={() => handleFocus('business_type')}
                       onBlur={handleBlur}
@@ -254,11 +265,11 @@ export const ProfileForm = () => {
             render={({ field }) => (
               <FormItem className="md:w-full mt-6">
                 <FormLabel
-                  className={`font-montserrat font-semibold text-base ${
+                  className={`ltr:font-montserrat font-semibold text-base ${
                     activeField === 'mobile' ? 'text-[#A67F6B]' : ''
                   }`}
                 >
-                  Phone Number
+                  {textForm?.phoneNumber}
                 </FormLabel>
                 <div className="flex gap-x-2">
                   <FormControl>
@@ -266,7 +277,7 @@ export const ProfileForm = () => {
                       value={country_code}
                       onValueChange={(value) => setCountryCode(value)}
                     >
-                      <SelectTrigger className="w-32 flex border-[#E8E9E9] bg-[#F9FBFB]">
+                      <SelectTrigger className="w-32 flex border-[#E8E9E9] bg-[#F9FBFB] rtl:flex-row-reverse">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -301,7 +312,7 @@ export const ProfileForm = () => {
                     <Input
                       className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
                       type="number"
-                      placeholder="No country code number"
+                      placeholder="00000000"
                       value={mobile}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       onFocus={() => handleFocus('mobile')}
@@ -319,16 +330,16 @@ export const ProfileForm = () => {
             render={({ field }) => (
               <FormItem className="md:w-full md:ml-4 mt-6 rtl:md:ml-0 rtl:md:mr-4">
                 <FormLabel
-                  className={`font-montserrat font-semibold text-base ${
+                  className={`ltr:font-montserrat font-semibold text-base ${
                     activeField === 'social_media' ? 'text-[#A67F6B]' : ''
                   }`}
                 >
-                  Social Media Account
+                  {textForm?.socialMediaAccount}
                 </FormLabel>
                 <FormControl>
                   <Input
                     className="focus:text-[#A67F6B] border focus:border-[#A67F6B] border-[#E8E9E9] bg-[#F9FBFB]"
-                    placeholder="Your social media account goes here .."
+                    placeholder={descriptionForm?.socialMediaAccount}
                     {...field}
                     onFocus={() => handleFocus('social_media')}
                     onBlur={handleBlur}
@@ -347,24 +358,35 @@ export const ProfileForm = () => {
               render={({ field }) => (
                 <FormItem className="md:w-full mt-6">
                   <FormLabel
-                    className={`font-montserrat font-semibold text-base ${
+                    className={`ltr:font-montserrat font-semibold text-base ${
                       activeField === 'location_count' ? 'text-[#A67F6B]' : ''
                     }`}
                   >
-                    Number of Locations
+                    {textForm?.numberofLocations}
                   </FormLabel>
                   <FormControl>
                     <Select onValueChange={field.onChange}>
-                      <SelectTrigger className="border-[#E8E9E9] bg-[#F9FBFB]">
-                        <SelectValue className="flex" placeholder="0" />
+                      <SelectTrigger className="border-[#E8E9E9] bg-[#F9FBFB] rtl:flex-row-reverse">
+                        <SelectValue
+                          className="flex flex-row-reverse"
+                          placeholder="0"
+                        />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="5" className="flex">
-                          5
-                        </SelectItem>
-                        <SelectItem value="10">10</SelectItem>
-                        <SelectItem value="15">15</SelectItem>
-                        {/* Add other country codes as needed */}
+                      <SelectContent className="overflow-y-auto max-h-[10rem] ">
+                        {descriptionForm.numberofLocations.length &&
+                          descriptionForm.numberofLocations.map(
+                            (item: any, index: number) => {
+                              return (
+                                <SelectItem
+                                  key={index}
+                                  value={item}
+                                  className="flex "
+                                >
+                                  {item}
+                                </SelectItem>
+                              );
+                            },
+                          )}
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -379,24 +401,32 @@ export const ProfileForm = () => {
               render={({ field }) => (
                 <FormItem className="md:w-full md:ml-4 mt-6 rtl:md:ml-0 rtl:md:mr-4 ">
                   <FormLabel
-                    className={`font-montserrat font-semibold text-base ${
+                    className={`ltr:font-montserrat font-semibold text-base ${
                       activeField === 'staff_count' ? 'text-[#A67F6B]' : ''
                     }`}
                   >
-                    Number of Staff
+                    {textForm?.numberofStaff}
                   </FormLabel>
                   <FormControl>
                     <Select onValueChange={field.onChange}>
-                      <SelectTrigger className="border-[#E8E9E9] bg-[#F9FBFB]">
+                      <SelectTrigger className="border-[#E8E9E9] bg-[#F9FBFB] rtl:flex-row-reverse">
                         <SelectValue className="flex " placeholder="0" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="5" className="flex">
-                          5
-                        </SelectItem>
-                        <SelectItem value="10">10</SelectItem>
-                        <SelectItem value="15">15</SelectItem>
-                        {/* Add other country codes as needed */}
+                      <SelectContent className="overflow-y-auto max-h-[10rem] rtl:flex-row-reverse">
+                        {descriptionForm.numberofStaff.length &&
+                          descriptionForm.numberofStaff.map(
+                            (item: any, index: number) => {
+                              return (
+                                <SelectItem
+                                  key={index}
+                                  value={item}
+                                  className="flex"
+                                >
+                                  {item}
+                                </SelectItem>
+                              );
+                            },
+                          )}
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -407,12 +437,12 @@ export const ProfileForm = () => {
           </div>
         )}
         <div className="w-full mt-6">
-          <p className="text-[#172524] font-montserrat font-semibold mb-2">
-            Do you provide home service visits?
+          <p className="text-[#172524] ltr:font-montserrat font-semibold mb-2">
+            {textForm?.homeServiceVisits}
           </p>
           <ToggleButtonForm
-            firstValue="Yes"
-            secondValue="No"
+            firstValue={textForm?.homeServiceVisitsList?.[0]}
+            secondValue={textForm?.homeServiceVisitsList?.[1]}
             homeService={homeService}
             setHomeService={setHomeService}
             setContent={setContentChange}
@@ -424,9 +454,9 @@ export const ProfileForm = () => {
         <Button
           type="submit"
           disabled={isSubmit}
-          className="bg-white text-primary border border-primary w-full px-4 rounded-lg text-base mt-6 hover:bg-primary hover:text-white font-montserrat font-semibold md:h-auto"
+          className="bg-white text-primary border border-primary w-full px-4 rounded-lg text-base mt-6 hover:bg-primary hover:text-white ltr:font-montserrat font-semibold md:h-auto"
         >
-          {isSubmit ? 'Sending...' : 'Send Message'}
+          {isSubmit ? 'Sending...' : `${textForm?.buttonText}`}
         </Button>
       </form>
       <ToastContainer />

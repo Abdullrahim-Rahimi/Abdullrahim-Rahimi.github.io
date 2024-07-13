@@ -6,21 +6,23 @@ import { useEffect, useState } from 'react';
 import axiosInstance, { baseURLImage } from '@/helpers/axiosConfig';
 import { useRouter } from 'next/navigation';
 import { usePostStore } from '@/store/post';
+import { useChangeLanguage } from '@/store/language';
 
 export const SimiliarTopick = () => {
   const [listCard, setListCards] = useState<any>();
 
   const router = useRouter();
   const { handlePost } = usePostStore();
+  const { lang } = useChangeLanguage();
 
   useEffect(() => {
     (async () => {
       const responseList = await axiosInstance.get(
-        '/resources-blog-posts?populate=*',
+        `/resources-blog-posts?populate=*&locale=${lang}`,
       );
-      setListCards(responseList?.data.data);
+      setListCards(responseList?.data?.data);
     })();
-  }, []);
+  }, [lang]);
   return (
     <div className="flex flex-col justify-center items-center ">
       <h2 className="text-[#172524] text-bold text-[32px] leading-[40px] pt-28 pb-10">
@@ -62,7 +64,7 @@ export const SimiliarTopick = () => {
                       {item.attributes.tags.hair}
                     </span>
                   </div>
-                  <h3 className="mt-2 text-lg font-montserrat font-semibold">
+                  <h3 className="mt-2 text-lg ltr:font-montserrat font-semibold">
                     {item.attributes.title}
                   </h3>
 
@@ -88,7 +90,7 @@ export const SimiliarTopick = () => {
                       {item.attributes.user.time} to read
                     </span>
                   </div>
-                  <p className="mt-2 text-[#455150] text-sm font-montserrat">
+                  <p className="mt-2 text-[#455150] text-sm ltr:font-montserrat">
                     {item.attributes.description}
                   </p>
                 </div>

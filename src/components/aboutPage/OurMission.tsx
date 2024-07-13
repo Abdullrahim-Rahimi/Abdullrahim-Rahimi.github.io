@@ -28,7 +28,7 @@ export const OurMissing = ({
         <h1 className="text-center text-[32px] leading-10 md:text-[40px] md:leading-[50px] md:font-bold">
           {heroAbout?.missingTitle}
         </h1>
-        <p className="text-center text-[#455150] mt-3 font-montserrat text-base font-normal md:px-[440px]">
+        <p className="text-center text-[#455150] mt-3 ltr:font-montserrat text-base font-normal md:px-[440px]">
           {heroAbout?.missinngDescription}
         </p>
       </div>
@@ -42,7 +42,7 @@ export const OurMissing = ({
             <h2 className="pt-2 text-[#172524] leading-10 text-4xl md:text-[40px] md:leading-[50px] font-bold">
               {heroAbout?.personalizedPath.subtitle}
             </h2>
-            <p className="font-montserrat font-medium text-base pt-3 leading-8 text-primaryBtn md:text-[16px] md:leading-6 md:font-normal ">
+            <p className="ltr:font-montserrat font-medium text-base pt-3 leading-8 text-primaryBtn md:text-[16px] md:leading-6 md:font-normal ">
               {heroAbout?.personalizedPath.description}
             </p>
           </div>

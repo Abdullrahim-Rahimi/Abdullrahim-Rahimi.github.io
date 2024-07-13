@@ -27,7 +27,7 @@ export const FeaturesCustomerItem = ({
       >
         <h2
           className={
-            'font-montserrat font-semibold text-[20px] leading-[30px] mb-1'
+            'ltr:font-montserrat font-semibold text-[20px] leading-[30px] mb-1'
           }
         >
           {item.title}

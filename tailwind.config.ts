@@ -22,7 +22,7 @@ const config = {
       colors: {
         customWhite: 'rgba(255, 255, 255, 0.1)',
         primaryOutline: 'rgba(88, 105, 104, 1)',
-        customGreen: 'hsl(150deg 20% 30%)',
+        customGreen: 'hsl(177, 19%, 22%)',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -87,12 +87,14 @@ const config = {
       spacing: {
         'custom-width': 'calc(100% + 32px)',
         'custom-width-md': 'calc(100% + 48px)',
+        'x-reverse': '4px',
       },
     },
     fontFamily: {
       openSans: 'var(--open-sans)',
       montserrat: 'var(--montserrat)',
       inter: 'var(--inter)',
+      cairo: 'var(--cairo)',
     },
   },
   plugins: [require('tailwindcss-animate')],

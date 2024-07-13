@@ -44,21 +44,24 @@ export const PrivacyPoliceList = ({
         <h2 className="capitalize font-bold text-2xl mb-10 text-primary pt-10">
           {dataSection?.titleWelcome}
         </h2>
-        <p className="font-montserrat text-[#455150] mb-4">
+        <p className="ltr:font-montserrat text-[#455150] mb-4">
           {dataSection?.daisyDescription}
         </p>
 
-        <p className="font-montserrat mb-4 text-[#455150]">
+        <p className="ltr:font-montserrat mb-4 text-[#455150]">
           {dataSection?.theProvisionsSet}
         </p>
         <h2 className="capitalize font-bold text-2xl mb-4 text-primary pt-10">
-          Acceptance of policy
+          {dataSection?.titleAccepted}
         </h2>
         <ol className="list-decimal px-4 ml-4">
           {dataSection &&
             dataSection.acceptanceOfPolicy.map((item: any, index: number) => {
               return (
-                <li className="font-montserrat text-[#455150] mb-4" key={index}>
+                <li
+                  className="ltr:font-montserrat text-[#455150] mb-4"
+                  key={index}
+                >
                   {item}
                 </li>
               );
@@ -72,7 +75,10 @@ export const PrivacyPoliceList = ({
           {dataSection &&
             dataSection.collectionOfDataList.map((item: any, index: number) => {
               return (
-                <li className="font-montserrat text-[#455150] mb-4" key={index}>
+                <li
+                  className="ltr:font-montserrat text-[#455150] mb-4"
+                  key={index}
+                >
                   {item}
                 </li>
               );
@@ -84,7 +90,7 @@ export const PrivacyPoliceList = ({
               (item: any, index: number) => {
                 return (
                   <li
-                    className="font-montserrat text-[#455150] mb-4"
+                    className="ltr:font-montserrat text-[#455150] mb-4"
                     key={index}
                   >
                     {item}
@@ -100,7 +106,10 @@ export const PrivacyPoliceList = ({
           {dataSection &&
             dataSection.useAndHandlingofData.map((item: any, index: number) => {
               return (
-                <li className="font-montserrat text-[#455150] mb-4" key={index}>
+                <li
+                  className="ltr:font-montserrat text-[#455150] mb-4"
+                  key={index}
+                >
                   {item}
                 </li>
               );
@@ -112,7 +121,7 @@ export const PrivacyPoliceList = ({
               (item: any, index: number) => {
                 return (
                   <li
-                    className="font-montserrat text-[#455150] mb-4"
+                    className="ltr:font-montserrat text-[#455150] mb-4"
                     key={index}
                   >
                     {item}
@@ -121,10 +130,10 @@ export const PrivacyPoliceList = ({
               },
             )}
         </ol>
-        <p className="font-montserrat text-[#455150] mb-4">
+        <p className="ltr:font-montserrat text-[#455150] mb-4">
           {dataSection?.publicInformationDisclosure}
         </p>
-        <p className="font-montserrat mb-4 text-[#455150]">
+        <p className="ltr:font-montserrat mb-4 text-[#455150]">
           {dataSection?.comunicationText}
         </p>
         <ol className=" px-4 ml-4  list-decimal">
@@ -133,7 +142,7 @@ export const PrivacyPoliceList = ({
               (item: any, index: number) => {
                 return (
                   <li
-                    className="font-montserrat text-[#455150] mb-4"
+                    className="ltr:font-montserrat text-[#455150] mb-4"
                     key={index}
                   >
                     {item}
@@ -142,16 +151,16 @@ export const PrivacyPoliceList = ({
               },
             )}
         </ol>
-        <p className="font-montserrat text-[#455150] mb-4">
+        <p className="ltr:font-montserrat text-[#455150] mb-4">
           {dataSection?.textAppUse}
         </p>
-        <p className="font-montserrat mb-4 text-[#455150]">
+        <p className="ltr:font-montserrat mb-4 text-[#455150]">
           {dataSection?.handleAllPersonal}
         </p>
         <h2 className="capitalize font-bold text-2xl mb-4 text-primary pt-10">
           {dataSection?.disseminationofData}
         </h2>
-        <p className="font-montserrat text-[#455150] mb-4">
+        <p className="ltr:font-montserrat text-[#455150] mb-4">
           {dataSection?.privacyPolicy}
         </p>
         <ol className=" px-4 ml-4  list-decimal">
@@ -160,7 +169,7 @@ export const PrivacyPoliceList = ({
               (item: any, index: number) => {
                 return (
                   <li
-                    className="font-montserrat text-[#455150] mb-4"
+                    className="ltr:font-montserrat text-[#455150] mb-4"
                     key={index}
                   >
                     {item}
@@ -175,7 +184,7 @@ export const PrivacyPoliceList = ({
               (item: any, index: number) => {
                 return (
                   <li
-                    className="font-montserrat text-[#455150] mb-4"
+                    className="ltr:font-montserrat text-[#455150] mb-4"
                     key={index}
                   >
                     {item}
@@ -190,7 +199,7 @@ export const PrivacyPoliceList = ({
               (item: any, index: number) => {
                 return (
                   <li
-                    className="font-montserrat text-[#455150] mb-4"
+                    className="ltr:font-montserrat text-[#455150] mb-4"
                     key={index}
                   >
                     {item}
@@ -205,7 +214,10 @@ export const PrivacyPoliceList = ({
           dataSection.disseminationoSecondfData.map(
             (item: any, index: number) => {
               return (
-                <li className="font-montserrat text-[#455150] mb-4" key={index}>
+                <li
+                  className="ltr:font-montserrat text-[#455150] mb-4"
+                  key={index}
+                >
                   {item}
                 </li>
               );
@@ -217,73 +229,82 @@ export const PrivacyPoliceList = ({
           dataSection.disseminationoSecondfDataAlpha.map(
             (item: any, index: number) => {
               return (
-                <li className="font-montserrat text-[#455150] mb-4" key={index}>
+                <li
+                  className="ltr:font-montserrat text-[#455150] mb-4"
+                  key={index}
+                >
                   {item}
                 </li>
               );
             },
           )}
       </ol>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.accordingly}
       </p>
       <h2 className="capitalize font-bold text-2xl mb-4 text-primary pt-10">
         {dataSection?.consent}
       </h2>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.submittingorProviding}
       </p>
       <ol className=" px-4 ml-4  list-decimal">
         {dataSection &&
           dataSection.consentAndOptingOut.map((item: any, index: number) => {
             return (
-              <li className="font-montserrat text-[#455150] mb-4" key={index}>
+              <li
+                className="ltr:font-montserrat text-[#455150] mb-4"
+                key={index}
+              >
                 {item}
               </li>
             );
           })}
       </ol>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.strictSecurity}
       </p>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.bestToProtect}
       </p>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.youInform}
       </p>
       <h2 className="capitalize font-bold text-2xl mb-4 text-primary pt-10">
         {dataSection?.informationRequests}
       </h2>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.personalnformation}
       </p>
       <h2 className="capitalize font-bold text-2xl mb-4 text-primary pt-10">
         {dataSection?.cookies}
       </h2>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.aplication}
       </p>
       <ol className=" px-4 ml-4  list-decimal">
         {dataSection &&
           dataSection.cookiesList.map((item: any, index: number) => {
             return (
-              <li className="font-montserrat text-[#455150] mb-4" key={index}>
+              <li
+                className="ltr:font-montserrat text-[#455150] mb-4"
+                key={index}
+              >
                 {item}
               </li>
             );
           })}
       </ol>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.alsoPossible}
       </p>
       <h2 className="capitalize font-bold text-2xl mb-4 text-primary pt-10">
         {dataSection?.modificationofPrivacypolicy}
       </h2>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.thisPrivacyPolicy}
       </p>
-      <p className="font-montserrat text-[#455150] mb-4">
+      <p className="ltr:font-montserrat text-[#455150] mb-4">
         {dataSection?.checkRegularly}
       </p>
       {showScroll && (

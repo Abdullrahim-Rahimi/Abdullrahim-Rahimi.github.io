@@ -1,49 +1,43 @@
 import { Button } from '../ui/button';
+import { useCalculate } from '@/store/calculateResult';
 
 export const ToggleButton = ({
   setHomeService,
   homeService,
-  setCalculate,
   name,
+  textButton,
 }: {
   setHomeService: any;
   homeService: any;
-  setCalculate: any;
   name: string;
+  textButton: any;
 }) => {
+  const { setCalculate } = useCalculate();
+
   return (
-    <div className="flex mt-4 md:mt-0 md:ml-auto">
+    <div className="flex mt-4 md:mt-0 ltr:md:ml-auto rtl:md:mr-auto">
       <Button
-        className={`w-full md:w-16  md:ml-8 rounded-r-none cursor-pointer border border-r-0 ${homeService ? 'bg-[#A67F6B] text-white' : 'bg-white text-primary'} focus:border-[#A67F6B]`}
+        className={`w-full md:w-16 ltr:md:ml-8 ltr:rounded-r-none capitalize rtl:rounded-l-none cursor-pointer border ltr:border-r-0 rtl:border-l-0 ${
+          homeService ? 'bg-[#A67F6B] text-white' : 'bg-white text-primary'
+        } focus:border-[#A67F6B]`}
         onClick={() => {
-          setHomeService(!homeService),
-            setCalculate((prev: any) => ({
-              ...prev,
-              [name]: true,
-            }));
+          setHomeService(!homeService);
+          setCalculate({ [name]: true });
         }}
       >
-        Yes
+        {textButton?.yes}
       </Button>
       <Button
-        className={`w-full md:w-16 border-l-0 border rounded-l-none cursor-pointer ${!homeService ? 'bg-[#A67F6B] text-white' : 'bg-white text-primary'} focus:border-[#A67F6B]`}
+        className={`w-full md:w-16 ltr:border-l-0 border rtl:border-r-0 capitalize ltr:rounded-l-none rtl:rounded-r-none cursor-pointer ${
+          !homeService ? 'bg-[#A67F6B] text-white' : 'bg-white text-primary'
+        } focus:border-[#A67F6B]`}
         onClick={() => {
-          setHomeService(!homeService),
-            setCalculate((prev: any) => ({
-              ...prev,
-              [name]: false,
-            }));
+          setHomeService(!homeService);
+          setCalculate({ [name]: false });
         }}
       >
-        No
+        {textButton?.no}
       </Button>
     </div>
   );
 };
-
-// onChange={(e) =>
-//     setCalculate((prev) => ({
-//       ...prev,
-//       staff: e.target.value,
-//     }))
-//   }

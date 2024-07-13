@@ -5,6 +5,7 @@ import { SectionBusiness } from '@/components/featuresPage/SectionBusiness';
 import { SignUpBlog } from '@/components/featuresPage/SignUpBlog';
 import { HeroPage } from '@/components/heroSection/HeroSection';
 import axiosInstance from '@/helpers/axiosConfig';
+import { useChangeLanguage } from '@/store/language';
 import { useEffect, useState } from 'react';
 
 const FeaturesBusiness = () => {
@@ -13,31 +14,33 @@ const FeaturesBusiness = () => {
   const [dataListPayment, setDataListPayment] = useState<any>();
   const [dataListReports, setDataListReports] = useState<any>();
 
+  const { lang } = useChangeLanguage();
+
   useEffect(() => {
     (async () => {
       try {
         const responseDataFeatures = await axiosInstance.get(
-          '/feature-businesses?populate=*',
+          `/feature-businesses?populate=*&locale=${lang}`,
         );
         const [dataFeatures] = responseDataFeatures.data.data;
-        setDataFeatures(dataFeatures.attributes);
+        setDataFeatures(dataFeatures?.attributes);
         const responseListManagm = await axiosInstance.get(
-          '/features-business-marketings?populate=*',
+          `/features-business-marketings?populate=*&locale=${lang}`,
         );
         const responseListPayments = await axiosInstance.get(
-          '/feature-business-payments?populate=*',
+          `/feature-business-payments?populate=*&locale=${lang}`,
         );
         const responseListReports = await axiosInstance.get(
-          '/feature-business-reports?populate=*',
+          `/feature-business-reports?populate=*&locale=${lang}`,
         );
-        setDataListManagm(responseListManagm.data.data);
-        setDataListPayment(responseListPayments.data.data);
-        setDataListReports(responseListReports.data.data);
+        setDataListManagm(responseListManagm?.data?.data);
+        setDataListPayment(responseListPayments?.data?.data);
+        setDataListReports(responseListReports?.data?.data);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [lang]);
   return (
     <div className="bg-primary px-4">
       <HeroPage

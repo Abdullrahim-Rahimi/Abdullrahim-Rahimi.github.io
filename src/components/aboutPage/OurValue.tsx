@@ -6,9 +6,9 @@ export const OurValue = ({ heroAbout }: { heroAbout: any }) => {
     <div className=" px-6 py-[112px] bg-[#F8F5F3]">
       <div className="flex flex-col mx-auto text-center">
         <h1 className="text-center text-[32px] leading-10 md:text-[40px] md:leading-[50px] md:font-bold">
-          Our Values
+          {heroAbout?.ourValues}
         </h1>
-        <p className="text-center text-[#455150] mt-3 font-montserrat text-base font-normal"></p>
+        <p className="text-center text-[#455150] mt-3 ltr:font-montserrat text-base font-normal"></p>
         <div className="md:flex md:px-[40px]">
           <ul className="mt-8 md:w-[70%] md:grid md:grid-cols-2 md:gap-6 space-y-6 md:space-y-0">
             {heroAbout?.aboutValues.map((item: any, index: number) => (
@@ -20,20 +20,20 @@ export const OurValue = ({ heroAbout }: { heroAbout: any }) => {
                   <MessageIcons />
                 </span>
                 <h2 className="mt-6 text-[30px] leading-6">{item.title}</h2>
-                <p className="mt-2 text-[#455150] font-montserrat">
+                <p className="mt-2 text-[#455150] ltr:font-montserrat">
                   {item.subtitle}
                 </p>
               </li>
             ))}
           </ul>
-          <div className="flex flex-col mt-6  justify-start md:justify-center md:items-center md:text-center items-start text-start border rounded-[12px] px-6 py-8 bg-white md:w-[30%] md:ml-6 md:mt-[32px]">
+          <div className="flex flex-col mt-6  justify-start md:justify-center md:items-center md:text-center items-start text-start border rounded-[12px] px-6 py-8 bg-white md:w-[30%] md:ml-6 rtl:ml-0 rtl:mr-6 md:mt-[32px]">
             <span>
               <MessageIcons />
             </span>
             <h2 className="mt-6 text-[30px] leading-6">
               {heroAbout?.lastBottomBlock.title}
             </h2>
-            <p className="mt-2 text-[#455150] font-montserrat">
+            <p className="mt-2 text-[#455150] ltr:font-montserrat">
               {heroAbout?.lastBottomBlock.subtitle}
             </p>
           </div>

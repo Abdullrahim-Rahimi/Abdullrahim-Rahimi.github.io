@@ -39,11 +39,12 @@ export const DesctopViewProfessional = ({
 
   return (
     <div className="mx-auto hidden md:block mb-[192px]">
-      <ul className="flex space-x-5 mx-auto justify-center mt-[66px]">
+      <ul className="flex space-x-5 rtl:space-x-reverse mx-auto justify-center mt-[66px] ">
         <li className="px-[65px] pt-[55px] bg-[#435655] rounded-[16px] border border-[#586968]">
           <Image
             src={firstImage}
-            className={'w-[220px] h-[350px]'}
+            className={'w-[220px] h-[320px]'}
+            style={dataBusiness?.firstImageStyle}
             alt="item"
             width={1000}
             height={1000}
@@ -52,7 +53,8 @@ export const DesctopViewProfessional = ({
         <li className="px-[65px] pt-[55px] bg-[#435655] rounded-[16px] border border-[#586968]">
           <Image
             src={secondImage}
-            className={'w-[515px] h-[350px]'}
+            className={'w-[220px] h-[320px]'}
+            style={dataBusiness?.secondImageStyle}
             alt="item"
             width={1000}
             height={1000}
@@ -61,7 +63,8 @@ export const DesctopViewProfessional = ({
         <li className="px-[65px] pt-[55px] bg-[#435655] rounded-[16px] border border-[#586968]">
           <Image
             src={thirdImage}
-            className={'w-[220px] h-[350px]'}
+            className={'w-[220px] h-[320px]'}
+            style={dataBusiness?.thirdImageStyle}
             alt="item"
             width={1000}
             height={1000}
@@ -72,6 +75,7 @@ export const DesctopViewProfessional = ({
         <Separator className="my-[164px] bg-[#586968]" />
       </div>
       <TabsFeaturesProfessional
+        idFeatures={dataBusiness?.listBusinessOptions[0]?.path}
         title={dataBusiness?.marketingTools.title}
         description={dataBusiness?.marketingTools.description}
         bgImage={imageLeaf}
@@ -83,6 +87,7 @@ export const DesctopViewProfessional = ({
         <Separator className="my-[164px] bg-[#586968]" />
       </div>
       <TabsFeaturesProfessional
+        idFeatures={dataBusiness?.listBusinessOptions[1]?.path}
         dataList={dataListPayment}
         title={dataBusiness?.collectPayments.title}
         description={dataBusiness?.collectPayments.description}
@@ -94,6 +99,7 @@ export const DesctopViewProfessional = ({
         <Separator className="my-[164px] bg-[#586968]" />
       </div>
       <ColumnTabsDesctop
+        idFeatures={dataBusiness?.listBusinessOptions[2]?.path}
         title={dataBusiness?.performanceReports.title}
         description={dataBusiness?.performanceReports.description}
         bgImage={imageLeafLast}

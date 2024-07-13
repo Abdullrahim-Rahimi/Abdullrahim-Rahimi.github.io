@@ -7,6 +7,9 @@ import Separator from '@/components/separator/Separator';
 import { ArrowUp } from 'lucide-react';
 import { TabsTutorials } from '@/components/tabsTutorials/TabsTutorials';
 import { TutorialComponents } from './TutorialComponents';
+import { useChangeLanguage } from '@/store/language';
+import axiosInstance from '@/helpers/axiosConfig';
+import { useRouter } from 'next/navigation';
 
 export const TutorialSection = ({
   setScroll,
@@ -16,6 +19,28 @@ export const TutorialSection = ({
   const blockRef = useRef<HTMLDivElement>(null);
   const withBlock = useRef<HTMLDivElement>(null);
   const [showScroll, setShowScroll] = useState(false);
+  const [listDataTabs, setListDataTabs] = useState<any>();
+  const [tutorialInfo, setTutorialInfo] = useState<any>();
+  const [dataTabs, setDataTabs] = useState<any>();
+  const router = useRouter();
+  const { lang } = useChangeLanguage();
+
+  useEffect(() => {
+    (async () => {
+      const tutorialInfo = await axiosInstance.get(
+        `/resources-tutorial-infos?locale=${lang}`,
+      );
+      const response = await axiosInstance.get(
+        `/resorce-tutorial-tabs?locale=${lang}`,
+      );
+      const [dataInfo] = tutorialInfo?.data?.data;
+      const [data] = response?.data?.data;
+      setListDataTabs(response?.data.data);
+      setDataTabs(data?.attributes);
+      setTutorialInfo(dataInfo?.attributes);
+    })();
+  }, [lang]);
+
   useEffect(() => {
     setScroll(blockRef);
   }, [setScroll]);
@@ -43,25 +68,31 @@ export const TutorialSection = ({
       window.removeEventListener('scroll', checkScroll);
     };
   }, []);
-
   return (
     <div
       className="bg-[#F8F5F3] px-4 pt-10 md:pt-20 md:pr-16 pb-28 md:flex"
       ref={blockRef}
     >
       <div className="hidden md:block" ref={withBlock}>
-        <TabsTutorials />
+        <TabsTutorials
+          dataTabs={dataTabs}
+          listDataTabs={listDataTabs}
+          infoTutorials={tutorialInfo}
+        />
       </div>
       <div className="flex items-center md:hidden" ref={withBlock}>
-        <SelectTutorials />
+        <SelectTutorials tabsList={listDataTabs} />
       </div>
       <Separator className="my-8 bg-[#E8E9E9] md:hidden" />
       <div className="block md:hidden">
-        <TutorialComponents />
+        <TutorialComponents tabsList={listDataTabs} />
       </div>
       {showScroll && (
         <div className="fixed bottom-4 right-4 flex flex-col">
-          <Button className="px-[14px] py-[25px] text-primary bg-white rounded-full shadow-xl  shadow-[#101E1D1A] mb-4 md:hidden">
+          <Button
+            className="px-[14px] py-[25px] text-primary bg-white rounded-full shadow-xl  shadow-[#101E1D1A] mb-4 md:hidden"
+            onClick={() => router.push('/contact')}
+          >
             <ContactSupport style="#2E4342" />
           </Button>
           <button
