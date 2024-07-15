@@ -58,14 +58,14 @@ const Pricing = () => {
   return (
     <div className="bg-[#F8F5F3] pb-[180px]">
       <PricingHero
-        setActivePricingPage={setActivePricingPage}
-        description={dataPricing?.title}
-        heightScreen={false}
-        styleSection="pb-[100px]"
-        onScrollToGrid={handleScrollToGrid}
-        setIsRecommended={setIsRecommended}
-        activePricingPage={activePricingPage}
-        dataPricing={dataPricing}
+        // setActivePricingPage={setActivePricingPage}
+        // description={dataPricing?.title}
+        // heightScreen={false}
+        // styleSection="pb-[100px]"
+        // onScrollToGrid={handleScrollToGrid}
+        // setIsRecommended={setIsRecommended}
+        // activePricingPage={activePricingPage}
+        // dataPricing={dataPricing}
       />
       <div className="px-4 md:px-20 bg-primary">
         <Separator />
