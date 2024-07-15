@@ -1,7 +1,7 @@
 'use client';
 import { EnterPrise } from '@/components/pricingPage/EnterpriseSection';
 import { GridPricingCard } from '@/components/pricingPage/GridPricingCard';
-import { PricingHero } from '@/components/pricingPage/HeroPricing';
+//import { PricingHero } from '@/components/pricingPage/HeroPricing';
 import Separator from '@/components/separator/Separator';
 import { Switch } from '@/components/ui/switch';
 import axiosInstance from '@/helpers/axiosConfig';
@@ -58,14 +58,14 @@ const Pricing = () => {
   return (
     <div className="bg-[#F8F5F3] pb-[180px]">
       <PricingHero
-        setActivePricingPage={setActivePricingPage}
-        description={dataPricing?.title}
-        heightScreen={false}
-        styleSection="pb-[100px]"
-        onScrollToGrid={handleScrollToGrid}
-        setIsRecommended={setIsRecommended}
-        activePricingPage={activePricingPage}
-        dataPricing={dataPricing}
+        // setActivePricingPage={setActivePricingPage}
+        // description={dataPricing?.title}
+        // heightScreen={false}
+        // styleSection="pb-[100px]"
+        // onScrollToGrid={handleScrollToGrid}
+        // setIsRecommended={setIsRecommended}
+        // activePricingPage={activePricingPage}
+        // dataPricing={dataPricing}
       />
       <div className="px-4 md:px-20 bg-primary">
         <Separator />
