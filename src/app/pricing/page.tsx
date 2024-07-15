@@ -1,7 +1,7 @@
 'use client';
 import { EnterPrise } from '@/components/pricingPage/EnterpriseSection';
 import { GridPricingCard } from '@/components/pricingPage/GridPricingCard';
-//import { PricingHero } from '@/components/pricingPage/HeroPricing';
+import { PricingHero } from '@/components/pricingPage/HeroPricing';
 import Separator from '@/components/separator/Separator';
 import { Switch } from '@/components/ui/switch';
 import axiosInstance from '@/helpers/axiosConfig';
