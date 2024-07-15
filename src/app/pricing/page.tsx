@@ -57,7 +57,6 @@ const Pricing = () => {
 
   return (
     <div className="bg-[#F8F5F3] pb-[180px]">
-      <div style={{ display: 'none' }}>
         <PricingHero
           setActivePricingPage={setActivePricingPage}
           description={dataPricing?.title}
@@ -68,7 +67,6 @@ const Pricing = () => {
           activePricingPage={activePricingPage}
           dataPricing={dataPricing}
         />
-      </div>
       <div className="px-4 md:px-20 bg-primary">
         <Separator />
       </div>
