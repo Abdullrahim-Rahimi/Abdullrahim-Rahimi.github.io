@@ -1,6 +1,6 @@
 export const getData = async () => {
   try {
-    const res = await fetch('https://devapp.trythedaisy.com/api/v1/vendors', {
+    const res = await fetch('https://app.trythedaisy.com/api/v1/vendors', {
       cache: 'no-store',
     });
 
