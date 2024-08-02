@@ -11,7 +11,7 @@ export const CreatePerfect = ({
 }) => {
   return (
     <div className="bg-[#2E4342] py-[68px] px-4 mt-28 md:mx-16 md:rounded-[16px] md:px-28 md:py-16 md:flex">
-      <h1 className="text-white font-semibold text-[32px] leading-10  md:mr-[150px]">
+      <h1 className="text-white font-semibold text-[32px] leading-10  ltr:md:mr-[150px] rtl:md:ml-[150px]">
         {textCreate}
       </h1>
       <Separator className="my-4 md:hidden" />
@@ -23,7 +23,7 @@ export const CreatePerfect = ({
           <PlayMarketButton
             fillHover="group-hover:fill-white fill-primary"
             hoverText="hover:text-white "
-            className="mb-4 md:mb-0 md:w-auto md:mr-4 text-primary bg-white  hover:text-white hover:bg-primary"
+            className="mb-4 md:mb-0 md:w-auto ltr:md:mr-4 text-primary bg-white  hover:text-white hover:bg-primary"
           />
           <AppStoreButton
             fillHover="group-hover:fill-white fill-primary"

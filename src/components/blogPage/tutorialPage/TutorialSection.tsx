@@ -68,6 +68,10 @@ export const TutorialSection = ({
       window.removeEventListener('scroll', checkScroll);
     };
   }, []);
+  const sortingListDataTabs = listDataTabs?.sort(
+    (a: any, b: any) => b.attributes.sortId - a.attributes.sortId,
+  );
+
   return (
     <div
       className="bg-[#F8F5F3] px-4 pt-10 md:pt-20 md:pr-16 pb-28 md:flex"
@@ -76,16 +80,16 @@ export const TutorialSection = ({
       <div className="hidden md:block" ref={withBlock}>
         <TabsTutorials
           dataTabs={dataTabs}
-          listDataTabs={listDataTabs}
+          listDataTabs={sortingListDataTabs}
           infoTutorials={tutorialInfo}
         />
       </div>
       <div className="flex items-center md:hidden" ref={withBlock}>
-        <SelectTutorials tabsList={listDataTabs} />
+        <SelectTutorials tabsList={sortingListDataTabs} />
       </div>
       <Separator className="my-8 bg-[#E8E9E9] md:hidden" />
       <div className="block md:hidden">
-        <TutorialComponents tabsList={listDataTabs} />
+        <TutorialComponents tabsList={sortingListDataTabs} />
       </div>
       {showScroll && (
         <div className="fixed bottom-4 right-4 flex flex-col">

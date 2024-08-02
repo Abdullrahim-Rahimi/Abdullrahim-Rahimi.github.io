@@ -18,7 +18,7 @@ export const Calculater = ({
   return (
     <>
       <div
-        className="flex flex-col md:flex-row justify-between"
+        className="flex flex-col md:flex-row justify-between scroll-mt-[250px]"
         ref={calculationFormRef}
       >
         <div className="mt-6 w-full ltr:mr-12">

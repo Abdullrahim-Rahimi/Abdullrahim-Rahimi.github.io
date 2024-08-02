@@ -57,16 +57,16 @@ const Pricing = () => {
 
   return (
     <div className="bg-[#F8F5F3] pb-[180px]">
-        <PricingHero
-          setActivePricingPage={setActivePricingPage}
-          description={dataPricing?.title}
-          heightScreen={false}
-          styleSection="pb-[100px]"
-          onScrollToGrid={handleScrollToGrid}
-          setIsRecommended={setIsRecommended}
-          activePricingPage={activePricingPage}
-          dataPricing={dataPricing}
-        />
+      <PricingHero
+        setActivePricingPage={setActivePricingPage}
+        description={dataPricing?.title}
+        heightScreen={false}
+        styleSection="pb-[100px]"
+        onScrollToGrid={handleScrollToGrid}
+        setIsRecommended={setIsRecommended}
+        activePricingPage={activePricingPage}
+        dataPricing={dataPricing}
+      />
       <div className="px-4 md:px-20 bg-primary">
         <Separator />
       </div>
@@ -96,8 +96,9 @@ const Pricing = () => {
           </p>
         </div>
       </div>
-      <div ref={gridCardRef} className="md:scroll-mt-[100px] scroll-mt-[120px]">
+      <div ref={gridCardRef} className="md:scroll-mt-[150px]">
         <GridPricingCard
+          refGridCardRef={gridCardRef}
           isRescomennded={isRescomennded}
           activePricingPage={activePricingPage}
           chechedAnnualy={checkedMonth}

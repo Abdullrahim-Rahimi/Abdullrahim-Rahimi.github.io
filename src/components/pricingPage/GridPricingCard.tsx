@@ -1,4 +1,24 @@
+'use client';
+import { useEffect, useState } from 'react';
 import { ItemCardPricing } from './ItemPricing';
+interface PricingData {
+  title: string;
+  description: string;
+  price: string;
+  subTitle: string;
+  options: string[];
+  optionPlus?: string;
+  priceYear?: string;
+}
+
+interface GridPricingCardProps {
+  listChangePricing?: string[];
+  chechedAnnualy: boolean;
+  activePricingPage: string;
+  isRescomennded: boolean;
+  dataPricing: PricingData[];
+  refGridCardRef: any;
+}
 
 export const GridPricingCard = ({
   listChangePricing,
@@ -6,13 +26,18 @@ export const GridPricingCard = ({
   activePricingPage,
   isRescomennded,
   dataPricing = [],
-}: {
-  listChangePricing?: any;
-  chechedAnnualy: boolean;
-  activePricingPage: string;
-  isRescomennded: boolean;
-  dataPricing: any;
-}) => {
+  refGridCardRef,
+}: GridPricingCardProps) => {
+  const [titlePricing, setTitlePricing] = useState<string[]>([]);
+  const [price, setPrice] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (dataPricing.length > 0) {
+      setTitlePricing(dataPricing.map((item) => item.title));
+      setPrice(dataPricing.map((item) => item.price));
+    }
+  }, [dataPricing]);
+
   return (
     <>
       <div className="w-full bg-primary h-[420px] md:block hidden"></div>
@@ -21,6 +46,7 @@ export const GridPricingCard = ({
           dataPricing.map((item: any, index: number) => {
             return (
               <ItemCardPricing
+                refGridCardRef={refGridCardRef}
                 activePricingPage={activePricingPage}
                 chechedAnnualy={chechedAnnualy}
                 key={index}
@@ -33,6 +59,8 @@ export const GridPricingCard = ({
                 priceYear={item.priceYear}
                 textRecomended={listChangePricing}
                 isRescomennded={isRescomennded}
+                titlePricing={titlePricing}
+                currentPrices={price}
               />
             );
           })}

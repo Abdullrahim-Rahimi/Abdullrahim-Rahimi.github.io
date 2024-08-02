@@ -6,6 +6,7 @@ import { OptionPricing } from '@/assets/icons/optionPricing/optionPricing';
 import { OtherOptionPricing } from './OtherOptionPricing';
 import { cn } from '@/lib/utils';
 import { useCalculate } from '@/store/calculateResult';
+import { useCurrentPlan } from '@/store/storeCurrentPlan';
 
 export const ItemCardPricing = ({
   title,
@@ -19,6 +20,9 @@ export const ItemCardPricing = ({
   activePricingPage,
   isRescomennded,
   textRecomended,
+  titlePricing,
+  currentPrices,
+  refGridCardRef,
 }: {
   title: string;
   subtitle: string;
@@ -31,47 +35,57 @@ export const ItemCardPricing = ({
   activePricingPage: string;
   isRescomennded: boolean;
   textRecomended: any;
+  titlePricing: string[];
+  currentPrices: string[];
+  refGridCardRef: any;
 }) => {
   const [showAll, setShowAll] = useState(false);
   const [currentPlanBus, setCurrentPlanBus] = useState('');
   const [currentPlanProf, setCurrentPlanProf] = useState('');
-
+  const { changePlan, setPricing } = useCurrentPlan();
   const { staff, branch } = useCalculate();
   const currentPrice = !chechedAnnualy ? price : priceYear;
-  const isRecommended = title === currentPlanProf || title === currentPlanBus;
+  const isRecommended = title === currentPlanBus;
   const defaulText = textRecomended?.textItemPricing;
-
   useEffect(() => {
-    if (staff <= 3) {
-      setCurrentPlanBus('Basic'), setCurrentPlanProf('Starter');
+    if (staff <= 3 || branch <= 1) {
+      setCurrentPlanBus(titlePricing[0]);
+      changePlan(titlePricing[0]);
+      setPricing(currentPrices[0]);
+      setCurrentPlanProf('Starter');
     }
-    if (staff > 3 && staff < 8) {
-      setCurrentPlanBus('Growth'), setCurrentPlanProf('Professional');
+    if ((staff > 3 && staff <= 8) || (branch > 1 && branch < 3)) {
+      setCurrentPlanBus(titlePricing[1]);
+      changePlan(titlePricing[1]);
+      setPricing(currentPrices[1]);
+
+      setCurrentPlanProf('Professional');
     }
-    if (staff > 8) {
-      setCurrentPlanBus('Business'), setCurrentPlanProf('Elite');
-    }
-    if (branch <= 1) {
-      setCurrentPlanBus('Basic'), setCurrentPlanProf('Starter');
-    }
-    if (branch > 1 && branch < 2) {
-      setCurrentPlanBus('Growth'), setCurrentPlanProf('Professional');
-    }
-    if (branch > 5) {
-      setCurrentPlanBus('Business'), setCurrentPlanProf('Elite');
+    if (staff > 8 || branch > 5) {
+      setCurrentPlanBus(titlePricing[2]);
+      changePlan(titlePricing[2]);
+      setPricing(currentPrices[2]);
+
+      setCurrentPlanProf('Elite');
     }
   }, [staff, branch]);
-
   return (
     <>
       <li
+        // ref={isRecommended && isRescomennded ? refGridCardRef : null}
         className={cn(
           'flex bg-white flex-col justify-center items-center text-center first:mt-0 mt-10 md:mt-0 pt-10 md:pt-10 border rounded-[16px] relative overflow-hidden first-border-[2px] ',
-          { 'first:border-[#A67F6B]': isRecommended && isRescomennded },
+          {
+            'first:border-[#A67F6B] scroll-mt-[1000px]':
+              isRecommended && isRescomennded,
+          },
         )}
       >
         {isRecommended && isRescomennded && (
-          <p className="absolute first:block hidden top-0 left-0 right-0 text-center text-[#A67F6B] bg-[#EDE5E1]">
+          <p
+            className="absolute first:block hidden top-0 left-0 right-0 text-center text-[#A67F6B] bg-[#EDE5E1] "
+            ref={refGridCardRef}
+          >
             {textRecomended?.textRecomended}
           </p>
         )}

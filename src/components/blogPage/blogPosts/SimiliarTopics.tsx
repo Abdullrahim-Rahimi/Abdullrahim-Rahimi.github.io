@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { usePostStore } from '@/store/post';
 import { useChangeLanguage } from '@/store/language';
 
-export const SimiliarTopick = () => {
+export const SimiliarTopick = ({ titleSimilar }: { titleSimilar: string }) => {
   const [listCard, setListCards] = useState<any>();
 
   const router = useRouter();
@@ -26,7 +26,7 @@ export const SimiliarTopick = () => {
   return (
     <div className="flex flex-col justify-center items-center ">
       <h2 className="text-[#172524] text-bold text-[32px] leading-[40px] pt-28 pb-10">
-        Similar Topics
+        {titleSimilar}
       </h2>
       <ul className="bg-[#F8F5F3] px-4 space-y-8 pb-[28px] md:pb-[140px] bg-transparent md:grid md:grid-cols-3 md:gap-6 md:space-y-0">
         {listCard &&
@@ -56,8 +56,8 @@ export const SimiliarTopick = () => {
                   />
                 </div>
                 <div className="px-6 py-4 mt-6">
-                  <div className="flex justify-start space-x-2 text-sm">
-                    <span className="px-3 py-1 text-[#2543AD] bg-[#E9ECF7] rounded-sm">
+                  <div className="flex justify-start gap-2 text-sm">
+                    <span className="px-3 py-1 text-[#2543AD] bg-[#E9ECF7] rounded-sm ">
                       {item.attributes.tags.wellness}
                     </span>
                     <span className="px-3 py-1 text-[#14736F] bg-[#E7F1F1] rounded-sm">
@@ -68,12 +68,12 @@ export const SimiliarTopick = () => {
                     {item.attributes.title}
                   </h3>
 
-                  <div className="flex justify-start space-x-2 text-gray-500 text-sm mt-4">
-                    <div className=" hidden md:flex border-r pr-[10px]">
+                  <div className="flex justify-start gap-2 text-gray-500 text-sm mt-4">
+                    <div className=" hidden md:flex ltr:border-r ltr:pr-[10px] rtl:pl-[10px]">
                       <Image
                         src={ownerSrc}
                         alt="people"
-                        className="mr-[10px] rounded-full"
+                        className="ltr:mr-[10px] rtl:ml-[10px] rounded-full"
                         width={18}
                         height={18}
                       />
@@ -82,12 +82,12 @@ export const SimiliarTopick = () => {
                       </span>
                     </div>
                     <span className="flex items-center border-r pr-[10px]">
-                      <CalendarIcon className="mr-[10px]" />
+                      <CalendarIcon className="ltr:mr-[10px] rtl:ml-[10px]" />
                       {item.attributes.user.date}
                     </span>
-                    <span className="flex items-center ">
-                      <ClockIcon className="mr-2" />
-                      {item.attributes.user.time} to read
+                    <span className="flex items-center rtl:pr-2 rtl:border-r">
+                      <ClockIcon className="ltr:mr-[10px] rtl:ml-[10px]" />
+                      {item.attributes.user.time}
                     </span>
                   </div>
                   <p className="mt-2 text-[#455150] text-sm ltr:font-montserrat">

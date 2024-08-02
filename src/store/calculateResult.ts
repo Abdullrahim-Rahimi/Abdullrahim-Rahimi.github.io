@@ -2,7 +2,7 @@ import { create } from 'zustand';
 interface ICalculateState {
   staff: any;
   branch: any;
-  country: string;
+  country: any;
   provideHome: boolean;
   assistantOnboard: boolean;
   available: boolean;

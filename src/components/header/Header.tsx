@@ -134,7 +134,7 @@ export const Header = () => {
                   (item: { title: string; nav: string }, index: number) => {
                     let href = item.nav;
 
-                    if (item.title === 'Home' || item.title === 'الرئيسية') {
+                    if (item.title === listHeader?.[0].title) {
                       if (typeof window !== 'undefined') {
                         const storedHref = localStorage.getItem('activePage');
                         if (storedHref) {
@@ -142,10 +142,7 @@ export const Header = () => {
                         }
                       }
                     }
-                    if (
-                      item.title === 'Resources' ||
-                      item.title === 'الموارد'
-                    ) {
+                    if (item.title === listHeader?.[3].title) {
                       return (
                         <li
                           key={index}

@@ -26,7 +26,6 @@ const Legal = () => {
       setDataLegal(data?.attributes);
     })();
   }, [lang]);
-
   return (
     <div className="w-full">
       <HeroBlogPage />
@@ -35,7 +34,7 @@ const Legal = () => {
         textDownload={dataLeagal?.textDownload}
         textCreate={dataLeagal?.textCreate}
       />
-      <SimiliarTopick />
+      <SimiliarTopick titleSimilar={dataLeagal?.titleSimilar} />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { Button } from '../ui/button';
 import { tutorialsList } from '@/lib/constants/tutorialsList';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useChangeLanguage } from '@/store/language';
 
 export const TabsTutorials = ({
   dataTabs,
@@ -16,19 +17,21 @@ export const TabsTutorials = ({
   infoTutorials: any;
 }) => {
   const router = useRouter();
+  const { lang } = useChangeLanguage();
   const [defaultValue, setDefaultValue] = useState<string>('');
   useEffect(() => {
     if (listDataTabs && listDataTabs.length > 0) {
       setDefaultValue(listDataTabs[0].attributes.titleListTab);
     }
-  }, [listDataTabs]);
+  }, [listDataTabs, lang]);
 
   if (!defaultValue) {
     return null;
   }
   return (
     <Tabs
-      defaultValue={defaultValue}
+      value={defaultValue}
+      onValueChange={setDefaultValue}
       className="flex bg-[#F8F5F3] rtl:flex-row-reverse"
     >
       <TabsList className="flex flex-col py-6  mr-6 ml-16 bg-white px-6 h-fit">
@@ -63,7 +66,7 @@ export const TabsTutorials = ({
           return (
             <TabsContent
               key={index}
-              value={item?.attributes.titleListTab}
+              value={item.attributes.titleListTab}
               defaultValue={defaultValue}
             >
               <div

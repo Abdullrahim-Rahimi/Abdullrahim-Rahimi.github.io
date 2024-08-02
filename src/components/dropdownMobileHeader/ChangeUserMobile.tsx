@@ -48,7 +48,6 @@ export const ChangeUserTypeMobile = ({
       //   setCurrentPage(data?.attributes?.optionsToogle[0].label);
     })();
   }, [lang]);
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedPath = localStorage.getItem('activePage');
@@ -113,19 +112,11 @@ export const ChangeUserTypeMobile = ({
     if (typeof window !== 'undefined') {
       const currentPath = localStorage.getItem('activePage');
       if (currentPath) setActive(currentPath);
-      if (currentPath === '/business' && lang === 'en')
-        setCurrentPage('Business');
-      if (currentPath === '/customer' && lang === 'en')
-        setCurrentPage('Customer');
-      if (currentPath === '/professional' && lang === 'en')
-        setCurrentPage('Professional');
-      //
-      if (currentPath === '/business' && lang === 'ar') setCurrentPage('شركات');
-      if (currentPath === '/customer' && lang === 'ar') setCurrentPage('أفراد');
-      if (currentPath === '/professional' && lang === 'ar')
-        setCurrentPage('محترفين');
+      if (currentPath === '/business') setCurrentPage(dataList?.[0].label);
+      if (currentPath === '/customer') setCurrentPage(dataList?.[1].label);
+      if (currentPath === '/professional') setCurrentPage(dataList?.[2].label);
     }
-  }, [lang]);
+  }, [dataList, lang]);
   const { changePage } = useChangePage();
 
   return (

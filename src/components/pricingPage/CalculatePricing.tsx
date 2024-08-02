@@ -51,7 +51,6 @@ export const CalculatePricing = ({
     staff,
   } = useCalculate();
 
-
   return (
     <div className="bg-[#828E8E] rounded-[16px] p-0 md:p-8 w-full">
       <div className="p-6 md:p-8 rounded-[16px] bg-white">

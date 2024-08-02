@@ -27,11 +27,16 @@ export const CardPosts = ({
     handlePost({});
     setMarkdownPost({});
   }, [handlePost, setMarkdownPost]);
-  const sortingList = listCard?.sort((a: any, b: any) => a.id - b.id);
+  //sorting lists
+
+  const sortingList = listCard?.sort(
+    (a: any, b: any) => b.attributes.sortId - a.attributes.sortId,
+  );
 
   useEffect(() => {
     choosePatnName(typePath);
   }, []);
+
   return (
     <div className="bg-[#F8F5F3]">
       <div className="h-[230px] md:h-[240px] bg-primary"></div>
@@ -43,7 +48,6 @@ export const CardPosts = ({
             const [dataOwner] = item.attributes.iconOwner.data;
             const ownerSrc = new URL(dataOwner.attributes.url, baseURLImage)
               .href;
-
             return (
               <li
                 onClick={() => {

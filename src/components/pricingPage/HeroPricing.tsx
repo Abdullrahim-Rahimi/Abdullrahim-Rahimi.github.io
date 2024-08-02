@@ -51,7 +51,7 @@ export const PricingHero = ({
           className="mt-[46px]"
         />
       </div>
-      <div className=" md:px-16 w-full mt-[47px]" style={{ display: 'none' }}>
+      <div className=" md:px-16 w-full mt-[47px]">
         <CalculatePricing
           onScrollToGrid={onScrollToGrid}
           setIsRecommended={setIsRecommended}

@@ -19,7 +19,7 @@ export const FeaturesCustomerItem = ({
     <>
       <li
         className={cn(
-          'md:rounded-[16px] md:border border-t border-b border-[#828E8E] bg-[#FFFFFF1A] px-4 pt-6  text-white mt-20 ',
+          'md:rounded-[16px] md:border border-t border-b border-[#828E8E] bg-[#FFFFFF1A] px-4 pt-6  text-white mt-20 md:flex md:flex-col',
           {
             'mt-0 md:mt-20': index === 0,
           },
@@ -43,6 +43,7 @@ export const FeaturesCustomerItem = ({
           width={1000}
           height={1000}
           src={currentImage}
+          style={item?.sizePicture}
           alt="features-images"
         />
       </li>

@@ -98,7 +98,7 @@ export const TabsFeaturesProfessional: React.FC<
                 <TabsContent
                   key={index}
                   value={item.attributes.title}
-                  className="px-2 py-4 w-full pr-16 rtl:pr-0 rtl:pl-16"
+                  className="px-2 py-4 w-full pr-16 rtl:pr-0 rtl:pl-16 my-auto"
                 >
                   <div className="w-full h-[480px] bg-[#435655] rounded-[16px] border border-[#828E8E] relative overflow-hidden my-auto">
                     <Image

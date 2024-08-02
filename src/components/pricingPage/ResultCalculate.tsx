@@ -3,6 +3,8 @@ import { Button } from '../ui/button';
 import { CheckIconPricing } from '@/assets/icons/checkIconPricing/CheckIconPricing';
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
+import { useCalculate } from '@/store/calculateResult';
+import { useCurrentPlan } from '@/store/storeCurrentPlan';
 
 export const ResultCalculate = ({
   setCheckedYear,
@@ -18,13 +20,22 @@ export const ResultCalculate = ({
   dataPricing: any;
 }) => {
   const resultList = dataPricing?.resetCalculation?.resultOption;
+  const { branch, country, staff } = useCalculate();
+
+  const { plan, price } = useCurrentPlan();
+  const staffCount = staff > 1 ? (staff - 1) * 10 : 0;
+  const branchCount = branch > 1 ? (branch - 1) * 25 : 0;
+  const countryCount = country > 1 ? (country - 1) * 50 : 0;
+  const totalCount = staffCount + branchCount + countryCount;
+
+  let cleanedAmount = price ? price.replace('$', '') : 60;
   return (
-    <div ref={calculationFormRef}>
+    <div ref={calculationFormRef} className=" scroll-mt-[300px]">
       <div className="mt-6 md:p-6 md:border md:rounded-[16px]">
         <div className="md:flex md:justify-between md:items-center ">
           <div className="flex justify-between md:justify-start">
             <h2 className="ltr:font-montserrat font-semibold text-[#242424] text-[16px] leading-6">
-              {dataPricing?.resetCalculation?.Plan}
+              {plan}
             </h2>
             <p className="bg-[#E9ECF7] px-[9px] py-[4px] ltr:font-inter text-[#2543AD] rounded-[20px] w-fit text-[12px] leading-[12px] font-medium self-center ltr:md:ml-3 rtl:md:mr-3">
               {dataPricing?.resetCalculation?.tryPeriod}
@@ -49,7 +60,7 @@ export const ResultCalculate = ({
                   <li key={index} className="flex items-center ">
                     <CheckIconPricing style="w-[14px] h-[14px]" />
                     <span className="text-[#455150] ltr:font-montserrat font-medium ml-2">
-                      1{item}
+                      {item}
                     </span>
                   </li>
                 );
@@ -62,10 +73,10 @@ export const ResultCalculate = ({
           <div className=" md:w-[50%]  md:border-l md:py-[20px] md:px-6">
             <div className="flex justify-between">
               <h3 className="text-[#455150] ltr:font-montserrat text-base font-medium">
-                {dataPricing?.resetCalculation?.basicPlan}:
+                {plan}:
               </h3>
               <p className="text-[#172524] text-[14px] leading-5 ltr:font-montserrat font-medium ">
-                $50
+                {price}
                 <span className="text-[#455150] font-normal">
                   / {dataPricing?.resetCalculation?.month}
                 </span>
@@ -73,10 +84,10 @@ export const ResultCalculate = ({
             </div>
             <div className="flex justify-between mt-3">
               <h3 className="text-[#455150] ltr:font-montserrat text-base font-medium">
-                1 {dataPricing?.resetCalculation?.staff}:
+                {staff} {dataPricing?.resetCalculation?.staff}:
               </h3>
               <p className="text-[#172524] text-[14px] leading-5 ltr:font-montserrat font-medium ">
-                $10
+                ${staffCount}
                 <span className="text-[#455150] font-normal">
                   / {dataPricing?.resetCalculation?.month}
                 </span>
@@ -101,8 +112,8 @@ export const ResultCalculate = ({
                   })}
                 >
                   <p className="ltr:font-montserrat font-semibold text-[20px] leading-[30px]">
-                    $60
-                    <span className="ltr:font-montserrat text-[#455150] font-normal  md:text-[16px] md:leading-[18px]">
+                    ${+cleanedAmount + staffCount + branchCount + countryCount}
+                    <span className="ltr:font-montserrat text-[#455150] font-normal  md:text-[16px] md:leading-[18px] ml-2">
                       <span className="hidden md:inline">
                         {dataPricing?.resetCalculation?.per}
                       </span>
@@ -127,8 +138,13 @@ export const ResultCalculate = ({
                   })}
                 >
                   <p className="ltr:font-montserrat font-semibold text-[20px] leading-[30px]">
-                    $600
-                    <span className="ltr:font-montserrat text-[#455150] font-normal  md:text-[16px] md:leading-[18px]">
+                    $
+                    {(+cleanedAmount +
+                      staffCount +
+                      branchCount +
+                      countryCount) *
+                      10}
+                    <span className="ltr:font-montserrat text-[#455150] font-normal  md:text-[16px] md:leading-[18px] ml-2">
                       <span className="hidden md:inline">
                         {dataPricing?.resetCalculation?.per}
                       </span>

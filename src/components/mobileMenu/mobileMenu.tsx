@@ -48,7 +48,6 @@ export const MobileMenu = () => {
       }
     })();
   }, [lang]);
-
   return (
     <DropdownMenu
       open={openMenu}
@@ -82,16 +81,10 @@ export const MobileMenu = () => {
                         className="ltr:font-montserrat font-semibold text-xl leading-8 w-full justify-start  rtl:font-cairo rtl:justify-end"
                         onClick={() => {
                           toggleOpenMenu(false);
-                          if (
-                            item.title === 'Resources' ||
-                            item.title === 'الموارد' ||
-                            item.title === 'Ресурси'
-                          ) {
+                          if (item.title === listNav?.listNavigation[3].title) {
                             setResources(false);
                           } else if (
-                            item.title === 'Home' ||
-                            item.title === 'الرئيسية' ||
-                            item.title === 'Додому'
+                            item.title === listNav?.listNavigation[0].title
                           ) {
                             setOpenMenu(!openMenu);
                             toggleOpenMenu(!openMenu);
